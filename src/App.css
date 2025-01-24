@@ -25,23 +25,30 @@
 
 #root {
   max-width: 128rem;
-  margin: 0 auto;
+  margin: auto;
   padding: 2rem;
   font-size: var(--font-size-base-rem);
   background-color: var(--color-bg);
   color: var(--color-text);
+
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
 }
 
-/* Стили для верхней панели управления */
-.top-controls {
+html {
+  font-size: 10px;
+}
+
+body {
+  margin: auto;
   display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  place-items: center;
+  max-width: 120rem;
 }
 
 input {
-  width: 30rem;
+  width: 40rem;
   padding: 0.5rem;
   border: 0.1rem solid var(--color-primary);
   border-radius: 0.4rem;
