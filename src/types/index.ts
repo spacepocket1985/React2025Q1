@@ -2,7 +2,7 @@ export type EmptyPropsType = object;
 
 export type EmptyStateType = object;
 
-type Character = {
+export type Character = {
   id: number;
   name: string;
   gender: 'MALE' | 'FEMALE' | 'UNKNOWN';

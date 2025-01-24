@@ -45,10 +45,11 @@ class App extends Component<EmptyPropsType, AppState> {
   };
 
   render(): ReactNode {
+    const { charactersList } = this.state;
     return (
       <>
         <SearchBar />
-        <CardList />
+        <CardList items={charactersList} />
       </>
     );
   }
