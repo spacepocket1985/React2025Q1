@@ -46,6 +46,7 @@ body {
   display: flex;
   place-items: center;
   max-width: 120rem;
+  font-size: 1.4rem;
 }
 
 input {

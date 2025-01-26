@@ -6,6 +6,7 @@ import CardList from './components/cards/cardsList/CardList';
 import { EmptyPropsType, AppState, ApiResponse } from './types';
 import './App.css';
 import { getSearchTermFromLS } from './utils/localStorageActions';
+import Spinner from './components/spinner/Spinner';
 
 class App extends Component<EmptyPropsType, AppState> {
   constructor(props: EmptyPropsType) {
@@ -48,12 +49,13 @@ class App extends Component<EmptyPropsType, AppState> {
 
   render(): ReactNode {
     const { charactersList, isLoading, error } = this.state;
+
     return (
       <>
         <SearchBar onSearch={this.onRequest} />
-        {isLoading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        <CardList items={charactersList} />
+        {!error && isLoading && <Spinner />}
+        {!error && !isLoading && <CardList items={charactersList} />}
       </>
     );
   }
