@@ -7,6 +7,7 @@ import {
   getSearchTermFromLS,
   setSearchTermToLS,
 } from '../../utils/localStorageActions';
+import { ErrorButton } from '../error/errorButton/ErrorButton';
 
 type SearchBarProps = {
   onSearch: (query: string) => void;
@@ -42,6 +43,7 @@ class SearchBar extends Component<SearchBarProps, SearchBarState> {
             onChange={this.handleInputChange}
           />
           <button onClick={this.handleSubmit}>search</button>
+          <ErrorButton />
         </div>
       </>
     );

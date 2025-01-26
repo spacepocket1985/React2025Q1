@@ -7,6 +7,7 @@ import { EmptyPropsType, AppState, ApiResponse } from './types';
 import './App.css';
 import { getSearchTermFromLS } from './utils/localStorageActions';
 import Spinner from './components/spinner/Spinner';
+import ErrorMessage from './components/error/errorMessage/ErrorMessage';
 
 class App extends Component<EmptyPropsType, AppState> {
   constructor(props: EmptyPropsType) {
@@ -53,7 +54,7 @@ class App extends Component<EmptyPropsType, AppState> {
     return (
       <>
         <SearchBar onSearch={this.onRequest} />
-        {error && <p>Error: {error}</p>}
+        {error && <ErrorMessage errorMsg={error} />}
         {!error && isLoading && <Spinner />}
         {!error && !isLoading && <CardList items={charactersList} />}
       </>

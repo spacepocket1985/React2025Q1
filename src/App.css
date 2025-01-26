@@ -84,7 +84,7 @@ button:hover {
   margin-top: 1rem;
 }
 
-.error-button {
+.errorButton {
   background-color: var(--color-error-text);
   color: white;
 }
