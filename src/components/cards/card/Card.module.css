@@ -1,0 +1,33 @@
+.cardWrapper {
+  width: 26rem;
+  height: 24rem;
+  background-color: var(--color-bg-third);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: 0.3s all ease;
+  cursor: pointer;
+}
+
+.cardWrapper:hover {
+  transform: scale(1.1);
+}
+
+.cardImg {
+  width: 100%;
+  height: 20rem;
+  transition: opacity 0.5s ease 0s;
+  object-position: top center;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.cardTitle {
+  color: #fff;
+  margin: 0;
+  padding-top: 0.3rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+}

@@ -25,3 +25,5 @@ export type AppState = {
   isLoading: boolean;
   error: null | string;
 };
+
+export type SearchBarState = { searchTerm: string };

@@ -1,4 +1,9 @@
 .cardListWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
   background-color: var(--color-bg-secondary);
   padding: 1rem;
   border-radius: 0.4rem;

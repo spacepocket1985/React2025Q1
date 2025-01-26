@@ -2,6 +2,7 @@
   /* Цветовая схема */
   --color-bg: #ffffff; /* Светлый фон */
   --color-bg-secondary: #f8f9fa; /* Вторичный фон для карточек */
+  --color-bg-third: #818c96; /* Вторичный фон для карточек */
   --color-text: #333333; /* Текст */
   --color-primary: #007bff; /* Основной цвет */
   --color-secondary: #6c757d; /* Вторичный цвет */
@@ -60,7 +61,8 @@ input:hover {
 }
 
 button {
-  padding: 0.5rem 1rem;
+  font-size: 1.8rem;
+  padding: 1rem 1.5rem;
   background-color: var(--color-primary);
   border: none;
   color: white;

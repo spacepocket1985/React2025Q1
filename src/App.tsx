@@ -5,6 +5,7 @@ import CardList from './components/cards/cardsList/CardList';
 
 import { EmptyPropsType, AppState, ApiResponse } from './types';
 import './App.css';
+import { getSearchTermFromLS } from './utils/localStorageActions';
 
 class App extends Component<EmptyPropsType, AppState> {
   constructor(props: EmptyPropsType) {
@@ -18,7 +19,8 @@ class App extends Component<EmptyPropsType, AppState> {
   futuramaApi = new FuturamaApi();
 
   componentDidMount(): void {
-    this.onRequest();
+    const searchTerm = getSearchTermFromLS();
+    this.onRequest(searchTerm);
   }
 
   onRequest = (query?: string, size?: string, page?: string): void => {
@@ -45,10 +47,12 @@ class App extends Component<EmptyPropsType, AppState> {
   };
 
   render(): ReactNode {
-    const { charactersList } = this.state;
+    const { charactersList, isLoading, error } = this.state;
     return (
       <>
-        <SearchBar />
+        <SearchBar onSearch={this.onRequest} />
+        {isLoading && <p>Loading...</p>}
+        {error && <p>Error: {error}</p>}
         <CardList items={charactersList} />
       </>
     );
