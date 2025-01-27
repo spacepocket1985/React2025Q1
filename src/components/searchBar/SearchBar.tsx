@@ -1,25 +1,24 @@
 import { Component, ReactNode } from 'react';
-import { SearchBarState } from '../../types';
 
-import HeaderPic from './headerPic.png';
-import styles from './SearchBar.module.css';
+import { ErrorButton } from '../error/errorButton/ErrorButton';
+
+import { SearchBarState } from '../../types';
 import {
   getSearchTermFromLS,
   setSearchTermToLS,
 } from '../../utils/localStorageActions';
-import { ErrorButton } from '../error/errorButton/ErrorButton';
+
+import HeaderPic from './headerPic.png';
+import styles from './SearchBar.module.css';
 
 type SearchBarProps = {
   onSearch: (query: string) => void;
 };
 
 class SearchBar extends Component<SearchBarProps, SearchBarState> {
-  constructor(props: SearchBarProps) {
-    super(props);
-    this.state = {
-      searchTerm: getSearchTermFromLS(),
-    };
-  }
+  state = {
+    searchTerm: getSearchTermFromLS(),
+  };
 
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ searchTerm: event.target.value });

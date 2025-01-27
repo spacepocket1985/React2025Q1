@@ -1,4 +1,5 @@
 import { Component, ReactNode } from 'react';
+
 import { EmptyPropsType } from '../../../types';
 
 type ErrorButtonStateType = {
@@ -9,12 +10,9 @@ export class ErrorButton extends Component<
   EmptyPropsType,
   ErrorButtonStateType
 > {
-  constructor(props: EmptyPropsType) {
-    super(props);
-    this.state = {
-      hasError: false,
-    };
-  }
+  state: ErrorButtonStateType = {
+    hasError: false,
+  };
   onClickError = (): void => {
     this.setState({ hasError: true });
   };

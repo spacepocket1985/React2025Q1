@@ -1,23 +1,23 @@
 import { Component, ReactNode } from 'react';
-import { FuturamaApi } from './components/service/futuramaAPI';
+
 import SearchBar from './components/searchBar/SearchBar';
 import CardList from './components/cards/cardsList/CardList';
-
-import { EmptyPropsType, AppState, ApiResponse } from './types';
-import './App.css';
-import { getSearchTermFromLS } from './utils/localStorageActions';
-import Spinner from './components/spinner/Spinner';
 import ErrorMessage from './components/error/errorMessage/ErrorMessage';
+import Spinner from './components/spinner/Spinner';
+
+import { FuturamaApi } from './components/service/futuramaAPI';
+import { EmptyPropsType, AppState, ApiResponse } from './types';
+import { getSearchTermFromLS } from './utils/localStorageActions';
+
+import './App.css';
 
 class App extends Component<EmptyPropsType, AppState> {
-  constructor(props: EmptyPropsType) {
-    super(props);
-    this.state = {
-      charactersList: [],
-      error: null,
-      isLoading: true,
-    };
-  }
+  state = {
+    charactersList: [],
+    error: null,
+    isLoading: true,
+  };
+
   futuramaApi = new FuturamaApi();
 
   componentDidMount(): void {

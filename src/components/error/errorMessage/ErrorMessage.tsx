@@ -7,7 +7,7 @@ class ErrorMessage extends Component<{ errorMsg: string }> {
   render(): ReactNode {
     return (
       <>
-        <img className={styles.errorImg} src={errorImg} alt="Error" />;
+        <img className={styles.errorImg} src={errorImg} alt="Error" />
         <p className={styles.errorInfo}>{this.props.errorMsg}</p>
       </>
     );

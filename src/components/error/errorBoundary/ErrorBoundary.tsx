@@ -1,4 +1,5 @@
 import { Component, ReactNode } from 'react';
+
 import ErrorMessage from '../errorMessage/ErrorMessage';
 
 type ErrorBoundaryPropsType = {
