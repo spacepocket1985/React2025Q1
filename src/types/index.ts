@@ -22,8 +22,8 @@ export type ApiResponse = {
 
 export type AppState = {
   charactersList: Character[];
-  isLoading: boolean;
-  error: null | string;
+  query: string;
+  page: string;
 };
 
 export type SearchBarState = { searchTerm: string };

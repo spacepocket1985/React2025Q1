@@ -1,8 +1,7 @@
-import { Component, ReactNode } from 'react';
+import { useState } from 'react';
 
 import { ErrorButton } from '../error/errorButton/ErrorButton';
 
-import { SearchBarState } from '../../types';
 import {
   getSearchTermFromLS,
   setSearchTermToLS,
@@ -15,38 +14,27 @@ type SearchBarProps = {
   onSearch: (query: string) => void;
 };
 
-class SearchBar extends Component<SearchBarProps, SearchBarState> {
-  state = {
-    searchTerm: getSearchTermFromLS(),
+export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState(getSearchTermFromLS());
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
   };
 
-  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ searchTerm: event.target.value });
-  };
-
-  handleSubmit = () => {
-    const trimmedSearchTerm = this.state.searchTerm.trim();
+  const handleSubmit = () => {
+    const trimmedSearchTerm = searchTerm.trim();
     setSearchTermToLS(trimmedSearchTerm);
-    this.props.onSearch(trimmedSearchTerm);
+    onSearch(trimmedSearchTerm);
   };
 
-  render(): ReactNode {
-    const { searchTerm } = this.state;
-    return (
-      <>
-        <img className={styles.searchBarPic} src={HeaderPic} alt="header pic" />
-        <div className={styles.searchBarWrapper}>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={this.handleInputChange}
-          />
-          <button onClick={this.handleSubmit}>search</button>
-          <ErrorButton />
-        </div>
-      </>
-    );
-  }
-}
-
-export default SearchBar;
+  return (
+    <>
+      <img className={styles.searchBarPic} src={HeaderPic} alt="header pic" />
+      <div className={styles.searchBarWrapper}>
+        <input type="text" value={searchTerm} onChange={handleInputChange} />
+        <button onClick={handleSubmit}>search</button>
+        <ErrorButton />
+      </div>
+    </>
+  );
+};

@@ -1,65 +1,43 @@
-import { Component, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 
-import SearchBar from './components/searchBar/SearchBar';
-import CardList from './components/cards/cardsList/CardList';
-import ErrorMessage from './components/error/errorMessage/ErrorMessage';
-import Spinner from './components/spinner/Spinner';
+import { Spinner } from './components/spinner/Spinner';
+import { SearchBar } from './components/searchBar/SearchBar';
+import { CardList } from './components/cards/cardsList/CardList';
 
-import { FuturamaApi } from './service/futuramaAPI';
-import { EmptyPropsType, AppState, ApiResponse } from './types';
+import { AppState } from './types';
+import { ErrorMessage } from './components/error/errorMessage/ErrorMessage';
 import { getSearchTermFromLS } from './utils/localStorageActions';
+import { FuturamaApi } from './service/futuramaAPI';
 
 import './App.css';
 
-class App extends Component<EmptyPropsType, AppState> {
-  state = {
+export const App: React.FC = () => {
+  const [appData, setAppData] = useState<AppState>({
     charactersList: [],
-    error: null,
-    isLoading: true,
-  };
+    query: getSearchTermFromLS(),
+    page: '1',
+  });
 
-  futuramaApi = new FuturamaApi();
+  const { getCharacters, error, loading } = FuturamaApi();
 
-  componentDidMount(): void {
-    const searchTerm = getSearchTermFromLS();
-    this.onRequest(searchTerm);
-  }
+  const { charactersList, query } = appData;
 
-  onRequest = (query?: string, size?: string, page?: string): void => {
-    this.setState({ isLoading: true });
-    this.futuramaApi
-      .getCharacters(query, size, page)
-      .then(this.onCharactersListLoaded)
-      .catch(this.onError);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getCharacters(query);
+      setAppData({ ...appData, charactersList: data.items });
+    };
+    fetchData();
+  }, [appData, getCharacters, query]);
 
-  onCharactersListLoaded = (response: ApiResponse): void => {
-    this.setState({
-      charactersList: response.items.map((char) => char),
-      isLoading: false,
-      error: null,
-    });
-  };
-
-  onError = (error: Error): void => {
-    this.setState({
-      isLoading: false,
-      error: error.message,
-    });
-  };
-
-  render(): ReactNode {
-    const { charactersList, isLoading, error } = this.state;
-
-    return (
-      <>
-        <SearchBar onSearch={this.onRequest} />
-        {error && <ErrorMessage errorMsg={error} />}
-        {!error && isLoading && <Spinner />}
-        {!error && !isLoading && <CardList items={charactersList} />}
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <SearchBar onSearch={getCharacters} />
+      {error && <ErrorMessage errorMsg={error} />}
+      {!error && loading && <Spinner />}
+      {!error && !loading && <CardList items={charactersList} />}
+    </>
+  );
+};
 
 export default App;

@@ -1,13 +1,12 @@
-import { PureComponent, ReactNode } from 'react';
+import React from 'react';
 
-import Card from '../card/Card';
+import { Card } from '../card/Card';
 import { Character } from '../../../types';
 
 import styles from './CardList.module.css';
 
-class CardList extends PureComponent<{ items: Character[] }> {
-  render(): ReactNode {
-    const { items } = this.props;
+export const CardList: React.FC<{ items: Character[] }> = React.memo(
+  ({ items }) => {
     const msgForEmptyArr = 'Unfortunately, nothing was found for your request.';
     const renderItems = items.map((item) => <Card item={item} key={item.id} />);
     return (
@@ -16,5 +15,4 @@ class CardList extends PureComponent<{ items: Character[] }> {
       </div>
     );
   }
-}
-export default CardList;
+);

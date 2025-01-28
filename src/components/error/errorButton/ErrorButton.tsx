@@ -1,29 +1,18 @@
-import { Component, ReactNode } from 'react';
+import { useState } from 'react';
 
-import { EmptyPropsType } from '../../../types';
+export const ErrorButton: React.FC = () => {
+  const [hasError, setHasError] = useState(false);
 
-type ErrorButtonStateType = {
-  hasError: boolean;
-};
-
-export class ErrorButton extends Component<
-  EmptyPropsType,
-  ErrorButtonStateType
-> {
-  state: ErrorButtonStateType = {
-    hasError: false,
+  const onClickError = (): void => {
+    setHasError(true);
   };
-  onClickError = (): void => {
-    this.setState({ hasError: true });
-  };
-  render(): ReactNode {
-    if (this.state.hasError) {
-      throw new Error('Ooppps! We have some problems!');
-    }
-    return (
-      <button className="errorButton" onClick={this.onClickError}>
-        Get an Error
-      </button>
-    );
+
+  if (hasError) {
+    throw new Error('Ooppps! We have some problems!');
   }
-}
+  return (
+    <button className="errorButton" onClick={onClickError}>
+      Get an Error
+    </button>
+  );
+};

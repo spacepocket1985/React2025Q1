@@ -1,7 +1,7 @@
-import { ApiResponse } from '../types';
+import { useHttp } from '../hooks/useHttp';
+import { ApiResponse, Character } from '../types';
 
-const BaseUrl =
-  'https://futuramaapi.com/api/characters?orderBy=id&orderByDirection=asc';
+const BaseUrl = 'https://futuramaapi.com/api/characters';
 const Size = '&size=';
 const Page = '&page=';
 const Query = '&query=';
@@ -9,26 +9,38 @@ const Query = '&query=';
 export const DefaultSize = '12';
 export const DefaultPage = '1';
 export const DefaultQuery = '';
+const DefaultOrder = '?orderBy=id&orderByDirection=asc';
 
-export class FuturamaApi {
-  getResource = async (url: string): Promise<ApiResponse> => {
-    const response = await fetch(url);
+export const FuturamaApi = () => {
+  const { loading, request, error, clearError } = useHttp();
 
-    if (!response.ok) {
-      throw new Error(`Could not fetch ${url}, status: ${response.status}`);
-    }
-
-    return await response.json();
-  };
-
-  getCharacters = async (
+  const getCharacters = async (
     filterWord = DefaultQuery,
     sizeNum = DefaultSize,
     pageNum = DefaultPage
   ): Promise<ApiResponse> => {
-    const result = await this.getResource(
-      BaseUrl + Query + filterWord + Page + pageNum + Size + sizeNum
-    );
+    const result = (await request(
+      BaseUrl +
+        DefaultOrder +
+        Query +
+        filterWord +
+        Page +
+        pageNum +
+        Size +
+        sizeNum
+    )) as ApiResponse;
     return result;
   };
-}
+  const getCharacter = async (id: string): Promise<Character> => {
+    const result = (await request(`${BaseUrl}/${id}`)) as Character;
+    return result;
+  };
+
+  return {
+    error,
+    clearError,
+    loading,
+    getCharacters,
+    getCharacter,
+  };
+};

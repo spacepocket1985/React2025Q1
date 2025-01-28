@@ -37,6 +37,8 @@ export default tseslint.config(
       ...react.configs['jsx-runtime'].rules,
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-empty-function': 'off',
+      'react/display-name': 'off',
+      'react/prop-types': 'off',
       '@typescript-eslint/no-explicit-any': 'error',
     },
     settings: {
