@@ -5,7 +5,7 @@ import CardList from './components/cards/cardsList/CardList';
 import ErrorMessage from './components/error/errorMessage/ErrorMessage';
 import Spinner from './components/spinner/Spinner';
 
-import { FuturamaApi } from './components/service/futuramaAPI';
+import { FuturamaApi } from './service/futuramaAPI';
 import { EmptyPropsType, AppState, ApiResponse } from './types';
 import { getSearchTermFromLS } from './utils/localStorageActions';
 

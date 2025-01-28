@@ -1,4 +1,4 @@
-import { ApiResponse } from '../../types';
+import { ApiResponse } from '../types';
 
 const BaseUrl =
   'https://futuramaapi.com/api/characters?orderBy=id&orderByDirection=asc';
