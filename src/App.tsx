@@ -13,29 +13,36 @@ import './App.css';
 
 export const App: React.FC = () => {
   const [appData, setAppData] = useState<AppState>({
-    charactersList: [],
+    items: [],
+    total: 0,
     query: getSearchTermFromLS(),
-    page: '1',
+    page: 1,
+    pages: 1,
   });
 
   const { getCharacters, error, loading } = FuturamaApi();
 
-  const { charactersList, query } = appData;
+  const { items, query, page } = appData;
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getCharacters(query);
-      setAppData({ ...appData, charactersList: data.items });
+      const data = await getCharacters(query, page);
+      setAppData((prevAppData) => {
+        return {
+          ...prevAppData,
+          ...data,
+        };
+      });
     };
     fetchData();
-  }, [appData, getCharacters, query]);
+  }, [getCharacters, page, query]);
 
   return (
     <>
       <SearchBar onSearch={getCharacters} />
       {error && <ErrorMessage errorMsg={error} />}
       {!error && loading && <Spinner />}
-      {!error && !loading && <CardList items={charactersList} />}
+      {!error && !loading && <CardList items={items} />}
     </>
   );
 };

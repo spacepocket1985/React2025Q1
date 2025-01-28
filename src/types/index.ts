@@ -20,10 +20,8 @@ export type ApiResponse = {
   pages: number;
 };
 
-export type AppState = {
-  charactersList: Character[];
+export type AppState = Omit<ApiResponse, 'size'> & {
   query: string;
-  page: string;
 };
 
 export type SearchBarState = { searchTerm: string };
