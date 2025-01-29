@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { CardList } from '../components/cards/cardsList/CardList';
 import { ErrorMessage } from '../components/error/errorMessage/ErrorMessage';
@@ -7,6 +7,7 @@ import { Spinner } from '../components/spinner/Spinner';
 import { FuturamaApi } from '../service/futuramaAPI';
 import { AppState } from '../types';
 import { getSearchTermFromLS } from '../utils/localStorageActions';
+import { Pagination } from '../components/pagination/Pagination';
 
 const Main: React.FC = () => {
   const [, setSearchParams] = useSearchParams();
@@ -20,7 +21,7 @@ const Main: React.FC = () => {
 
   const { getCharacters, error, loading } = FuturamaApi();
 
-  const { items, query, page } = appData;
+  const { items, query, page, pages } = appData;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,9 +43,28 @@ const Main: React.FC = () => {
     });
   }, [page, setSearchParams, query]);
 
+  const onSetQuery = useCallback((newQuery: string) => {
+    setAppData((prevAppData) => ({
+      ...prevAppData,
+      query: newQuery,
+    }));
+  }, []);
+
+  const onPageChange = useCallback((newPageNume: number) => {
+    setAppData((prevAppData) => ({
+      ...prevAppData,
+      page: newPageNume,
+    }));
+  }, []);
+
   return (
     <>
-      <SearchBar onSearch={getCharacters} />
+      <SearchBar onSetQuery={onSetQuery} />
+      <Pagination
+        onPageChange={onPageChange}
+        totalPages={pages}
+        currentPage={page}
+      />
       {error && <ErrorMessage errorMsg={error} />}
       {!error && loading && <Spinner />}
       {!error && !loading && <CardList items={items} />}

@@ -50,7 +50,7 @@ body {
 }
 
 input {
-  width: 40rem;
+  width: 30rem;
   padding: 0.5rem;
   border: 0.1rem solid var(--color-primary);
   border-radius: 0.4rem;
