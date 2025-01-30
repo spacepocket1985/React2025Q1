@@ -1,0 +1,13 @@
+.searchBarWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.searchBarPic {
+  max-width: 42rem;
+  display: block;
+  margin: auto;
+  padding-bottom: 1rem;
+}
