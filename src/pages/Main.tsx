@@ -4,18 +4,22 @@ import { CardList } from '../components/cards/cardsList/CardList';
 import { ErrorMessage } from '../components/error/errorMessage/ErrorMessage';
 import { SearchBar } from '../components/searchBar/SearchBar';
 import { Spinner } from '../components/spinner/Spinner';
-import { FuturamaApi } from '../service/futuramaAPI';
+import { DefaultPage, FuturamaApi } from '../service/futuramaAPI';
 import { AppState } from '../types';
-import { getSearchTermFromLS } from '../utils/localStorageActions';
+
 import { Pagination } from '../components/pagination/Pagination';
+import {
+  pageSearchParam,
+  querySearchParam,
+} from '../utils/getPageSearchParams';
 
 const Main: React.FC = () => {
   const [, setSearchParams] = useSearchParams();
   const [appData, setAppData] = useState<AppState>({
     items: [],
     total: 0,
-    query: getSearchTermFromLS(),
-    page: 1,
+    query: querySearchParam || '',
+    page: pageSearchParam,
     pages: 1,
   });
 
@@ -47,6 +51,7 @@ const Main: React.FC = () => {
     setAppData((prevAppData) => ({
       ...prevAppData,
       query: newQuery,
+      page: DefaultPage,
     }));
   }, []);
 

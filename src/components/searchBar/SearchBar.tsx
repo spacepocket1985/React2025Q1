@@ -1,14 +1,7 @@
-import React, { useState } from 'react';
-
-import { ErrorButton } from '../error/errorButton/ErrorButton';
-
-import {
-  getSearchTermFromLS,
-  setSearchTermToLS,
-} from '../../utils/localStorageActions';
-
+import React from 'react';
 import HeaderPic from './headerPic.png';
 import styles from './SearchBar.module.css';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 type SearchBarProps = {
   onSetQuery: (query: string) => void;
@@ -16,15 +9,15 @@ type SearchBarProps = {
 
 export const SearchBar: React.FC<SearchBarProps> = React.memo(
   ({ onSetQuery }) => {
-    const [searchTerm, setSearchTerm] = useState(getSearchTermFromLS());
+    const [searchTerm, setSearchTerm] = useLocalStorage();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(event.target.value);
     };
 
     const handleSubmit = () => {
-      const trimmedSearchTerm = searchTerm.trim();
-      setSearchTermToLS(trimmedSearchTerm);
+      const trimmedSearchTerm = searchTerm!.trim();
+      setSearchTerm(trimmedSearchTerm);
       onSetQuery(trimmedSearchTerm);
     };
 
@@ -32,9 +25,12 @@ export const SearchBar: React.FC<SearchBarProps> = React.memo(
       <>
         <img className={styles.searchBarPic} src={HeaderPic} alt="header pic" />
         <div className={styles.searchBarWrapper}>
-          <input type="text" value={searchTerm} onChange={handleInputChange} />
+          <input
+            type="text"
+            value={searchTerm || ''}
+            onChange={handleInputChange}
+          />
           <button onClick={handleSubmit}>search</button>
-          <ErrorButton />
         </div>
       </>
     );
