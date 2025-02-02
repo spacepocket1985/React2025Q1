@@ -35,10 +35,13 @@ export const FuturamaApi = () => {
     },
     [request]
   );
-  const getCharacter = async (id: string): Promise<Character> => {
-    const result = (await request(`${BaseUrl}/${id}`)) as Character;
-    return result;
-  };
+  const getCharacter = useCallback(
+    async (id: string): Promise<Character> => {
+      const result = (await request(`${BaseUrl}/${id}`)) as Character;
+      return result;
+    },
+    [request]
+  );
 
   return {
     error,

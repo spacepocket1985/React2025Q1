@@ -22,6 +22,7 @@ export type ApiResponse = {
 
 export type AppState = Omit<ApiResponse, 'size'> & {
   query: string;
+  cardDetails: string;
 };
 
 export type SearchBarState = { searchTerm: string };
