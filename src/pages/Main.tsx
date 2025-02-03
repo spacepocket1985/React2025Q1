@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { CardList } from '../components/cards/cardsList/CardList';
 import { ErrorMessage } from '../components/error/errorMessage/ErrorMessage';
@@ -6,6 +6,8 @@ import { SearchBar } from '../components/searchBar/SearchBar';
 import { Spinner } from '../components/spinner/Spinner';
 import { DefaultPage, DefaultQuery, FuturamaApi } from '../service/futuramaAPI';
 import { AppState } from '../types';
+
+import styles from './Main.module.css';
 
 import { Pagination } from '../components/pagination/Pagination';
 import {
@@ -17,6 +19,10 @@ import { CardDetails } from '../components/cards/cardDetails/CardDetails';
 
 const Main: React.FC = () => {
   const [, setSearchParams] = useSearchParams();
+
+  const cardListRef = useRef(null);
+  const mainRef = useRef(null);
+
   const [appData, setAppData] = useState<AppState>({
     items: [],
     total: 0,
@@ -58,6 +64,7 @@ const Main: React.FC = () => {
       ...prevAppData,
       query: newQuery,
       page: DefaultPage,
+      cardDetails: DefaultQuery,
     }));
   }, []);
 
@@ -69,15 +76,35 @@ const Main: React.FC = () => {
     }));
   }, []);
 
-  const onCardClick = useCallback((index: number) => {
-    setAppData((prevData) => ({
-      ...prevData,
-      cardDetails: String(index),
+  const onCardClick = useCallback(
+    (index: number) => {
+      const cardDetailsParam = cardDetails ? DefaultQuery : String(index);
+      setAppData((prevData) => ({
+        ...prevData,
+        cardDetails: cardDetailsParam,
+      }));
+    },
+    [cardDetails]
+  );
+
+  const onCardClose = useCallback(() => {
+    setAppData((prevAppData) => ({
+      ...prevAppData,
+      cardDetails: DefaultQuery,
     }));
   }, []);
 
+  const onMainClick = (e: React.MouseEvent): void => {
+    if (e.target === cardListRef.current || e.target === mainRef.current) {
+      setAppData((prevAppData) => ({
+        ...prevAppData,
+        cardDetails: DefaultQuery,
+      }));
+    }
+  };
+
   return (
-    <>
+    <main ref={mainRef} onClick={onMainClick}>
       <SearchBar onSetQuery={onSetQuery} />
       <Pagination
         onPageChange={onPageChange}
@@ -87,12 +114,18 @@ const Main: React.FC = () => {
       {error && <ErrorMessage errorMsg={error} />}
       {!error && loading && <Spinner />}
       {!error && !loading && (
-        <>
-          <CardList items={items} onCardClick={onCardClick} />
-          {cardDetails && <CardDetails itemId={cardDetails} page={page} />}
-        </>
+        <div className={styles.wrapper}>
+          <CardList items={items} onCardClick={onCardClick} ref={cardListRef} />
+          {cardDetails && (
+            <CardDetails
+              itemId={cardDetails}
+              page={page}
+              onCardClose={onCardClose}
+            />
+          )}
+        </div>
       )}
-    </>
+    </main>
   );
 };
 
