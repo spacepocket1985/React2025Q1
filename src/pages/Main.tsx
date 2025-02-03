@@ -118,7 +118,7 @@ const Main: React.FC = () => {
           <CardList items={items} onCardClick={onCardClick} ref={cardListRef} />
           {cardDetails && (
             <CardDetails
-              itemId={cardDetails}
+              itemId={String(items[Number(cardDetails) - 1].id)}
               page={page}
               onCardClose={onCardClose}
             />
