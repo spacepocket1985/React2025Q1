@@ -1,18 +1,17 @@
 :root {
-  /* Цветовая схема */
-  --color-bg: #ffffff; /* Светлый фон */
-  --color-bg-secondary: #f8f9fa; /* Вторичный фон для карточек */
-  --color-bg-third: #818c96; /* Вторичный фон для карточек */
-  --color-text: #333333; /* Текст */
-  --color-primary: #007bff; /* Основной цвет */
-  --color-secondary: #6c757d; /* Вторичный цвет */
-  --color-hover: #0056b3; /* Цвет при наведении */
-  --color-error-bg: #f8d7da; /* Фон для ошибок */
-  --color-error-text: #721c24; /* Текст ошибки */
-  --color-dark-bg: #333333; /* Темный фон */
-  --color-dark-bg-secondary: #444444; /* Вторичный фон для карточек в темной теме */
-  --color-dark-text: #ffffff; /* Темный текст */
-  --color-dark-primary: #ffcc00; /* Основной цвет в темной теме */
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f8f9fa;
+  --color-bg-third: #818c96;
+  --color-text: #333333;
+  --color-primary: #007bff;
+  --color-secondary: #6c757d;
+  --color-hover: #0056b3;
+  --color-error-bg: #f8d7da;
+  --color-error-text: #721c24;
+  --color-dark-bg: #333333;
+  --color-dark-bg-secondary: #444444;
+  --color-dark-text: #ffffff;
+  --color-dark-primary: #ffcc00;
 }
 
 .dark-mode {
@@ -25,7 +24,6 @@
 }
 
 #root {
-  max-width: 128rem;
   margin: auto;
   padding: 2rem;
   font-size: var(--font-size-base-rem);
@@ -45,7 +43,6 @@ body {
   margin: auto;
   display: flex;
   place-items: center;
-  max-width: 120rem;
   font-size: 1.4rem;
 }
 

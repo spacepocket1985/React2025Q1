@@ -11,15 +11,14 @@ export const CardDetails: React.FC<{
   onCardClose: () => void;
 }> = React.memo(({ itemId, page, onCardClose }) => {
   const [character, setCharacter] = useState<null | Character>(null);
-
   const { getCharacter, loading } = FuturamaApi();
 
   useEffect(() => {
     const fetchCharacter = async () => {
-      const id = page === 1 ? itemId : String((page - 1) * 12 + Number(itemId));
-      const character = await getCharacter(id);
-      setCharacter(character);
+      const characterData = await getCharacter(itemId);
+      setCharacter(characterData);
     };
+
     fetchCharacter();
   }, [getCharacter, itemId, page]);
 
@@ -28,12 +27,16 @@ export const CardDetails: React.FC<{
     onCardClose();
   };
 
-  if (!character) return;
+  if (loading) {
+    return <Spinner />;
+  }
 
-  const contentOrSpinner = loading ? (
-    <Spinner />
-  ) : (
-    <>
+  if (!character) {
+    return <p>{'Unfortunately, nothing was found for your request.'}</p>;
+  }
+
+  return (
+    <div className={styles.cardWrapper}>
       <button className={styles.btnClose} onClick={handleCloseDetails}>
         X
       </button>
@@ -45,8 +48,6 @@ export const CardDetails: React.FC<{
       <p className={styles.cardTitle}>{character.name}</p>
       <p className={styles.cardTitle}>{`Gender - ${character.gender}`}</p>
       <p className={styles.cardTitle}>{`Status - ${character.status}`}</p>
-    </>
+    </div>
   );
-
-  return <div className={styles.cardWrapper}>{contentOrSpinner}</div>;
 });

@@ -20,7 +20,7 @@
 
 .cardImg {
   width: 100%;
-  height: 22rem;
+  height: 30rem;
   transition: opacity 0.5s ease 0s;
   object-position: top center;
   object-fit: cover;

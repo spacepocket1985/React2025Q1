@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 import { CardList } from '../components/cards/cardsList/CardList';
 import { ErrorMessage } from '../components/error/errorMessage/ErrorMessage';
 import { SearchBar } from '../components/searchBar/SearchBar';
@@ -123,6 +123,7 @@ const Main: React.FC = () => {
               onCardClose={onCardClose}
             />
           )}
+          <Outlet />
         </div>
       )}
     </main>
