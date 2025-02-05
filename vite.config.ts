@@ -18,6 +18,7 @@ export default mergeConfig(
           '**/*.spec.tsx',
           'src/__tests__/**',
           'src/__tests__/setupTests.ts',
+          'src/types',
         ],
       },
     },

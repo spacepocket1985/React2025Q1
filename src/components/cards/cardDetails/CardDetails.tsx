@@ -7,9 +7,8 @@ import { Spinner } from '../../spinner/Spinner';
 
 export const CardDetails: React.FC<{
   itemId: string;
-  page: number;
   onCardClose: () => void;
-}> = React.memo(({ itemId, page, onCardClose }) => {
+}> = React.memo(({ itemId, onCardClose }) => {
   const [character, setCharacter] = useState<null | Character>(null);
   const { getCharacter, loading } = FuturamaApi();
 
@@ -20,7 +19,7 @@ export const CardDetails: React.FC<{
     };
 
     fetchCharacter();
-  }, [getCharacter, itemId, page]);
+  }, [getCharacter, itemId]);
 
   const handleCloseDetails = () => {
     setCharacter(null);
@@ -37,7 +36,11 @@ export const CardDetails: React.FC<{
 
   return (
     <div className={styles.cardWrapper}>
-      <button className={styles.btnClose} onClick={handleCloseDetails}>
+      <button
+        data-testid="closeDetailsBtn"
+        className={styles.btnClose}
+        onClick={handleCloseDetails}
+      >
         X
       </button>
       <img

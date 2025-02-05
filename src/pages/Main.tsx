@@ -119,7 +119,6 @@ const Main: React.FC = () => {
           {cardDetails && (
             <CardDetails
               itemId={String(items[Number(cardDetails) - 1].id)}
-              page={page}
               onCardClose={onCardClose}
             />
           )}

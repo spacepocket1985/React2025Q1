@@ -1,3 +1,3 @@
 export const NotFound: React.FC = () => {
-  return <h2>NotFound</h2>;
+  return <h2>Page not found</h2>;
 };

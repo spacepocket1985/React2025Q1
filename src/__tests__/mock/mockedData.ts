@@ -1,0 +1,66 @@
+import { ApiResponse, Character } from '../../types';
+
+export const mockCharacters: Character[] = [
+  {
+    id: 1,
+    name: 'Rick Sanchez',
+    gender: 'MALE',
+    status: 'ALIVE',
+    species: 'Human',
+    createdAt: '2023-01-01T12:00:00Z',
+    image: 'https://example.com/images/rick.png',
+  },
+  {
+    id: 2,
+    name: 'Morty Smith',
+    gender: 'MALE',
+    status: 'ALIVE',
+    species: 'Human',
+    createdAt: '2023-01-02T12:00:00Z',
+    image: 'https://example.com/images/morty.png',
+  },
+  {
+    id: 3,
+    name: 'Summer Smith',
+    gender: 'FEMALE',
+    status: 'ALIVE',
+    species: 'Human',
+    createdAt: '2023-01-03T12:00:00Z',
+    image: 'https://example.com/images/summer.png',
+  },
+  {
+    id: 4,
+    name: 'Beth Smith',
+    gender: 'FEMALE',
+    status: 'UNKNOWN',
+    species: 'Human',
+    createdAt: '2023-01-04T12:00:00Z',
+    image: 'https://example.com/images/beth.png',
+  },
+  {
+    id: 5,
+    name: 'Jerry Smith',
+    gender: 'MALE',
+    status: 'DEAD',
+    species: 'Human',
+    createdAt: '2023-01-05T12:00:00Z',
+    image: 'https://example.com/images/jerry.png',
+  },
+  {
+    id: 6,
+    name: 'Mr. Meeseeks',
+    gender: 'UNKNOWN',
+    status: 'ALIVE',
+    species: 'Meeseeks',
+    createdAt: '2023-01-06T12:00:00Z',
+    image: 'https://example.com/images/meeseeks.png',
+  },
+];
+
+export const mockResponse: ApiResponse = {
+  items: mockCharacters,
+  total: 200,
+  page: 2,
+  size: 15,
+  pages: 43,
+};

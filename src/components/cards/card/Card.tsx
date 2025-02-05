@@ -9,7 +9,11 @@ export const Card: React.FC<{
   onCardClick: (index: number) => void;
 }> = React.memo(({ item, index, onCardClick }) => {
   return (
-    <div className={styles.cardWrapper} onClick={() => onCardClick(index)}>
+    <div
+      className={styles.cardWrapper}
+      onClick={() => onCardClick(index)}
+      data-testid="card"
+    >
       <img className={styles.cardImg} src={item.image} alt={item.name} />
       <p className={styles.cardTitle}>{item.name}</p>
     </div>
