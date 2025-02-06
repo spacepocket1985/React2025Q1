@@ -31,8 +31,11 @@ export const SearchBar: React.FC<SearchBarProps> = React.memo(
             type="text"
             value={searchTerm || DefaultQuery}
             onChange={handleInputChange}
+            data-testid="searchInput"
           />
-          <button type="submit">search</button>
+          <button type="submit" data-testid="serachSubmit">
+            search
+          </button>
         </form>
       </>
     );

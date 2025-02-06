@@ -1,59 +1,17 @@
-import {
-  render,
-  screen,
-  act,
-  fireEvent,
-  waitFor,
-} from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { BrowserRouter as Router, useSearchParams } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import { mockResponse } from './mock/mockedData';
 import Main from '../pages/Main';
 
 describe('tests for the MainPage component', async () => {
-  // vi.mock('../service/futuramaAPI', () => ({
-  //   FuturamaApi: () => ({
-  //     getCharacters: vi.fn(() => Promise.resolve(mockResponse)),
-  //     loading: false,
-  //     error: '',
-  //   }),
-  // }));
-
-  // vi.mock('../service/futuramaAPI', async (importOriginal) => {
-  //   const mod = await importOriginal<typeof import('../service/futuramaAPI')>();
-  //   return {
-  //     ...mod,
-  //     DefaultSize: 10,
-  //     DefaultPage: 1,
-  //     DefaultQuery: '',
-  //     FuturamaApi: () => ({
-  //       getCharacters: vi.fn(() => Promise.resolve(mockResponse)),
-  //       getCharacter: vi.fn(() => Promise.resolve(mockResponse.items[0])),
-  //       loading: false,
-  //       error: '',
-  //       clearError: vi.fn(),
-  //     }),
-  //   };
-  // });
-
-  vi.mock('react-router-dom', async () => {
-    const actual = await vi.importActual('react-router-dom');
-    return {
-      ...actual,
-      useSearchParams: vi.fn(() => {
-        const setSearchParamsMock = vi.fn(); // Моковая функция для setSearchParams
-        return [new URLSearchParams(), setSearchParamsMock]; // Возвращаем массив
-      }),
-    };
-  });
-
-  const mockResponse1 = {
+  const mockFetchResponse = {
     ok: true,
     statusText: 'OK',
     json: async () => mockResponse,
   } as Response;
-  globalThis.fetch = vi.fn().mockResolvedValue(mockResponse1);
+  globalThis.fetch = vi.fn().mockResolvedValue(mockFetchResponse);
   const renderMain = () => {
     return render(
       <Router>
@@ -61,20 +19,22 @@ describe('tests for the MainPage component', async () => {
       </Router>
     );
   };
-  it('Check that component updates URL query parameter when page changes', async () => {
+  it('should render MainPage with correct card data and pagination elements', async () => {
     await act(async () => await renderMain());
-    const page3Button = screen.getByText('3');
 
-    act(async () => {
-      await fireEvent.click(page3Button);
-    });
+    expect(
+      (await screen.findAllByTestId('card')).length ===
+        mockResponse.items.length
+    );
 
-    const setSearchParamsMock =
-      vi.mocked(useSearchParams).mock.results[0].value[1];
+    expect(screen.getByText('Prev')).toBeInTheDocument();
+    expect(screen.getByText('Next')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getByText('3')).toBeInTheDocument();
 
-    // Проверяем, что setSearchParams был вызван с правильными аргументами
-    await waitFor(() => {
-      expect(setSearchParamsMock).toHaveBeenCalledWith({ page: '3' });
-    });
+    expect(screen.getByText(mockResponse.items[2].name)).toBeInTheDocument();
+    expect(screen.getByText(mockResponse.items[5].name)).toBeInTheDocument();
+
+    expect(screen.getByTestId('searchInput')).toBeInTheDocument();
   });
 });

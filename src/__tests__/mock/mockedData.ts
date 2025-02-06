@@ -60,7 +60,7 @@ export const mockCharacters: Character[] = [
 export const mockResponse: ApiResponse = {
   items: mockCharacters,
   total: 200,
-  page: 1,
+  page: 2,
   size: 10,
   pages: 43,
 };

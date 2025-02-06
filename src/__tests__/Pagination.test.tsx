@@ -18,17 +18,14 @@ describe('tests for the Pagination component', () => {
   };
 
   it('renders pagination buttons correctly', async () => {
-    await act(async () => {
-      await renderPagination(3, 43);
-    });
+    renderPagination(3, 43);
+
     expect(screen.getByText('Next')).toBeInTheDocument();
     expect(screen.getByText('Prev')).toBeInTheDocument();
   });
 
   it('calls onPageChange with the correct parameters when changing pages', async () => {
-    await act(async () => {
-      await renderPagination(3, 43);
-    });
+    await renderPagination(3, 43);
 
     const page3Button = screen.getByText('3');
     await act(async () => {
@@ -60,25 +57,19 @@ describe('tests for the Pagination component', () => {
   });
 
   it('does not display Prev button on the first page', async () => {
-    await act(async () => {
-      await renderPagination(1, 43);
-    });
+    renderPagination(1, 43);
 
     expect(screen.queryByText('Prev')).not.toBeInTheDocument();
   });
 
   it('does not display Next button on the last page', async () => {
-    await act(async () => {
-      await renderPagination(43, 43);
-    });
+    await renderPagination(43, 43);
 
     expect(screen.queryByText('Next')).not.toBeInTheDocument();
   });
 
   it('displays the first and last page buttons when not in the current range', async () => {
-    await act(async () => {
-      await renderPagination(5, 10);
-    });
+    renderPagination(5, 10);
 
     expect(screen.getByText('1')).toBeInTheDocument();
     expect(screen.getByText('10')).toBeInTheDocument();
