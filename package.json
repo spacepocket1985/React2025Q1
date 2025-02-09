@@ -11,7 +11,7 @@
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint ./src --fix --color",
     "prepare": "husky",
-    "test": "vitest",
+    "test": "vitest --run",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
