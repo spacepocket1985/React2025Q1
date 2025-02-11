@@ -1,4 +1,10 @@
-import { render, screen, act } from '@testing-library/react';
+import {
+  render,
+  screen,
+  act,
+  waitFor,
+  fireEvent,
+} from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { BrowserRouter as Router } from 'react-router-dom';
 
@@ -36,5 +42,35 @@ describe('tests for the MainPage component', async () => {
     expect(screen.getByText(mockResponse.items[5].name)).toBeInTheDocument();
 
     expect(screen.getByTestId('searchInput')).toBeInTheDocument();
+  });
+
+  it('should render MainPage with correct card data and pagination elements', async () => {
+    await act(async () => await renderMain());
+
+    expect(
+      (await screen.findAllByTestId('card')).length ===
+        mockResponse.items.length
+    );
+
+    expect(screen.getByText('Prev')).toBeInTheDocument();
+    expect(screen.getByText('Next')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getByText('3')).toBeInTheDocument();
+
+    expect(screen.getByText(mockResponse.items[2].name)).toBeInTheDocument();
+    expect(screen.getByText(mockResponse.items[5].name)).toBeInTheDocument();
+
+    expect(screen.getByTestId('searchInput')).toBeInTheDocument();
+  });
+  it('Make sure the component updates URL query parameter when page changes', async () => {
+    await act(async () => renderMain());
+
+    const nextBtn = await waitFor(() => screen.getByText('Next'));
+
+    fireEvent.click(nextBtn);
+
+    await waitFor(() => {
+      expect(window.location.search).toContain('?page=3');
+    });
   });
 });

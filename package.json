@@ -11,7 +11,7 @@
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint ./src --fix --color",
     "prepare": "husky",
-    "test": "vitest",
+    "test": "vitest --run",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
@@ -45,5 +45,11 @@
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5",
     "vitest": "^2.1.9"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "vitest --run"
+    }
   }
 }
