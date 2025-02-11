@@ -10,6 +10,7 @@ export type Character = {
   species: string;
   createdAt: string;
   image: string;
+  isSelected: boolean;
 };
 
 export type ApiResponse = {
@@ -21,6 +22,11 @@ export type ApiResponse = {
 };
 
 export type AppState = Omit<ApiResponse, 'size'> & {
+  query: string;
+  cardDetails: string;
+};
+
+export type AppDataSliceType = Omit<ApiResponse, 'size' | 'items'> & {
   query: string;
   cardDetails: string;
 };

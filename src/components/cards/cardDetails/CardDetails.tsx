@@ -1,32 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+
+import { Spinner } from '../../spinner/Spinner';
+import { useAppDispatch } from '../../../hooks/storeHooks';
+import { cardClose } from '../../../store/slices/appDataSlice';
+import { useGetCharacterQuery } from '../../../store/slices/apiSlice';
 
 import styles from './CardDetails.module.css';
-import { Character } from '../../../types';
-import { FuturamaApi } from '../../../service/futuramaAPI';
-import { Spinner } from '../../spinner/Spinner';
 
 export const CardDetails: React.FC<{
   itemId: string;
-  onCardClose: () => void;
-}> = React.memo(({ itemId, onCardClose }) => {
-  const [character, setCharacter] = useState<null | Character>(null);
-  const { getCharacter, loading } = FuturamaApi();
+}> = React.memo(({ itemId }) => {
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const fetchCharacter = async () => {
-      const characterData = await getCharacter(itemId);
-      setCharacter(characterData);
-    };
-
-    fetchCharacter();
-  }, [getCharacter, itemId]);
-
+  const { data: character, isFetching } = useGetCharacterQuery(itemId);
   const handleCloseDetails = () => {
-    setCharacter(null);
-    onCardClose();
+    dispatch(cardClose());
   };
 
-  if (loading) {
+  if (isFetching) {
     return <Spinner />;
   }
 

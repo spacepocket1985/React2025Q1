@@ -11,3 +11,7 @@
   margin: auto;
   padding-bottom: 1rem;
 }
+
+button:disabled {
+  background-color: brown;
+}
