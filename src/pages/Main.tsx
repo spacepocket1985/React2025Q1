@@ -59,26 +59,20 @@ const Main: React.FC = () => {
     [dispatch]
   );
 
-  const contentOrSpinner = isFetching ? (
+  const cardsOrSpinner = isFetching ? (
     <Spinner />
   ) : (
-    <>
-      <div className={styles.wrapper}>
-        <CardList ref={cardListRef} />
-        {cardDetails && (
-          <CardDetails
-            itemId={String(data?.items[Number(cardDetails) - 1].id)}
-          />
-        )}
-      </div>
-    </>
+    <div className={styles.wrapper}>
+      <CardList ref={cardListRef} />
+      {cardDetails && <CardDetails />}
+    </div>
   );
 
   return (
     <main ref={mainRef} onClick={onMainClick}>
       <SearchBar />
       <Pagination />
-      {contentOrSpinner}
+      {cardsOrSpinner}
       {error && <ErrorMessage errorMsg={error.toString()} />}
     </main>
   );

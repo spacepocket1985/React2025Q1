@@ -1,17 +1,18 @@
 import React from 'react';
 
 import { Spinner } from '../../spinner/Spinner';
-import { useAppDispatch } from '../../../hooks/storeHooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/storeHooks';
 import { cardClose } from '../../../store/slices/appDataSlice';
 import { useGetCharacterQuery } from '../../../store/slices/apiSlice';
 
 import styles from './CardDetails.module.css';
 
-export const CardDetails: React.FC<{
-  itemId: string;
-}> = React.memo(({ itemId }) => {
+export const CardDetails: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { cardDetails } = useAppSelector((state) => state.appData);
+  const { characters } = useAppSelector((state) => state.characters);
 
+  const itemId = String(characters[Number(cardDetails) - 1].id);
   const { data: character, isFetching } = useGetCharacterQuery(itemId);
   const handleCloseDetails = () => {
     dispatch(cardClose());
@@ -44,4 +45,4 @@ export const CardDetails: React.FC<{
       <p className={styles.cardTitle}>{`Status - ${character.status}`}</p>
     </div>
   );
-});
+};
