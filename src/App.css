@@ -1,9 +1,16 @@
-:root {
+.base {
+  background-color: var(--color-bg);
+  height: 100vh;
+  width: 100vw;
+}
+
+.light {
   --color-bg: #ffffff;
   --color-bg-secondary: #f8f9fa;
   --color-bg-third: #818c96;
   --color-text: #333333;
   --color-primary: #007bff;
+  --color-controlls: #007bff;
   --color-secondary: #6c757d;
   --color-hover: #0056b3;
   --color-error-bg: #f8d7da;
@@ -12,20 +19,23 @@
   --color-dark-bg-secondary: #444444;
   --color-dark-text: #ffffff;
   --color-dark-primary: #ffcc00;
+  --color-switcher: #ffcc00;
 }
 
-.dark-mode {
-  --color-bg: #000000;
-  --color-bg-secondary: #222222;
+.dark {
+  --color-bg: #8a8787;
+  --color-bg-secondary: #7d7a7a;
+  --color-bg-third: #6c8296;
   --color-text: #ffffff;
   --color-primary: var(--color-dark-primary);
   --color-error-bg: #f5c6cb;
   --color-error-text: #f5c6cb;
+  --color-controlls: #ffbb02;
+  --color-switcher: #ffcc00;
 }
 
 #root {
   margin: auto;
-  padding: 2rem;
   font-size: var(--font-size-base-rem);
   background-color: var(--color-bg);
   color: var(--color-text);
@@ -61,7 +71,7 @@ input:hover {
 button {
   font-size: 1.8rem;
   padding: 1rem 1.5rem;
-  background-color: var(--color-primary);
+  background-color: var(--color-controlls);
   border: none;
   color: white;
   border-radius: 0.4rem;

@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   gap: 1.5rem;
   max-width: 75%;
+  margin: 1rem;
   justify-content: center;
   align-items: center;
   background-color: var(--color-bg-secondary);
