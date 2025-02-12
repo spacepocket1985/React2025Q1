@@ -11,7 +11,7 @@ export const Spinner = () => {
           shapeRendering: 'auto',
           display: 'block',
           margin: 'auto',
-          background: 'rgb(255, 255, 255)',
+          background: 'transparent',
         }}
       >
         <g>
