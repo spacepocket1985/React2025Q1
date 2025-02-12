@@ -5,7 +5,7 @@ import { setPage } from '../../store/slices/appDataSlice';
 
 import styles from './Pagination.module.css';
 
-export const Pagination: React.FC = React.memo(() => {
+export const Pagination: React.FC = () => {
   const { page: currentPage, pages: totalPages } = useAppSelector(
     (state) => state.appData
   );
@@ -71,4 +71,4 @@ export const Pagination: React.FC = React.memo(() => {
       )}
     </div>
   );
-});
+};

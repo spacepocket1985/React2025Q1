@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { CardList } from '../components/cards/cardsList/CardList';
 import { CardDetails } from '../components/cards/cardDetails/CardDetails';
 import { ErrorMessage } from '../components/error/errorMessage/ErrorMessage';
@@ -12,12 +13,11 @@ import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
 import { cardClose, setPagination } from '../store/slices/appDataSlice';
 import { DefaultQuery } from '../service/futuramaAPI';
 
-import styles from './Main.module.css';
 import { setCharacters } from '../store/slices/charactersSlice';
+import styles from './Main.module.css';
 
 const Main: React.FC = () => {
   const [, setSearchParams] = useSearchParams();
-
   const cardListRef = useRef(null);
   const mainRef = useRef(null);
 
@@ -50,14 +50,11 @@ const Main: React.FC = () => {
     });
   }, [page, setSearchParams, query, cardDetails, dispatch, characters]);
 
-  const onMainClick = useCallback(
-    (e: React.MouseEvent): void => {
-      if (e.target === cardListRef.current || e.target === mainRef.current) {
-        dispatch(cardClose());
-      }
-    },
-    [dispatch]
-  );
+  const onMainClick = (e: React.MouseEvent): void => {
+    if (e.target === cardListRef.current || e.target === mainRef.current) {
+      dispatch(cardClose());
+    }
+  };
 
   const cardsOrSpinner = isFetching ? (
     <Spinner />
@@ -68,12 +65,20 @@ const Main: React.FC = () => {
     </div>
   );
 
+  let errorMsg = 'Error. Something went wrong!';
+  if (error) {
+    if ('status' in error) {
+      const fetchError = error as FetchBaseQueryError;
+      errorMsg = `Error! ${fetchError.status}`;
+    }
+  }
+
   return (
     <main ref={mainRef} onClick={onMainClick}>
       <SearchBar />
       <Pagination />
       {cardsOrSpinner}
-      {error && <ErrorMessage errorMsg={error.toString()} />}
+      {error && <ErrorMessage errorMsg={errorMsg} />}
     </main>
   );
 };

@@ -31,16 +31,17 @@ const charactersSlice = createSlice({
       state.characters[indexForUpdate].isSelected =
         !state.characters[indexForUpdate].isSelected;
     },
-    addSelectedChar: (state, action: PayloadAction<Character>) => {
-      if (
-        !state.selectedCharacters.find((item) => item.id === action.payload.id)
-      )
-        state.selectedCharacters.push(action.payload);
-    },
-    removeSelectedChar: (state, action: PayloadAction<number>) => {
-      state.selectedCharacters = state.selectedCharacters.filter(
-        (item) => item.id !== action.payload
+
+    toggleFavoriteCharacter: (state, action: PayloadAction<Character>) => {
+      const index = state.selectedCharacters.findIndex(
+        (char) => char.id === action.payload.id
       );
+
+      if (index !== -1) {
+        state.selectedCharacters.splice(index, 1);
+      } else {
+        state.selectedCharacters.push({ ...action.payload, isSelected: true });
+      }
     },
     removeAllSelectedChars: (state) => {
       state.selectedCharacters = [];
@@ -56,10 +57,9 @@ const charactersSlice = createSlice({
 export const {
   setCharacters,
   selectCharacter,
-  addSelectedChar,
-  removeSelectedChar,
   removeAllSelectedChars,
   unSelectAllCharacters,
+  toggleFavoriteCharacter,
 } = charactersSlice.actions;
 
 export default charactersSlice.reducer;

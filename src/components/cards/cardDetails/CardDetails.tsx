@@ -6,6 +6,7 @@ import { cardClose } from '../../../store/slices/appDataSlice';
 import { useGetCharacterQuery } from '../../../store/slices/apiSlice';
 
 import styles from './CardDetails.module.css';
+import { BtnFavorite } from '../../btnFavorite/BtnFavorite';
 
 export const CardDetails: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ export const CardDetails: React.FC = () => {
 
   return (
     <div className={styles.cardWrapper}>
+      <BtnFavorite favoriteCharacter={characters[Number(cardDetails) - 1]} />
       <button
         data-testid="closeDetailsBtn"
         className={styles.btnClose}
