@@ -15,6 +15,7 @@ import { DefaultQuery } from '../service/futuramaAPI';
 
 import { setCharacters } from '../store/slices/charactersSlice';
 import styles from './Main.module.css';
+import { CardInformer } from '../components/cards/cardsInformer/CardsInformer';
 
 const Main: React.FC = () => {
   const [, setSearchParams] = useSearchParams();
@@ -78,6 +79,7 @@ const Main: React.FC = () => {
       <SearchBar />
       <Pagination />
       {cardsOrSpinner}
+      <CardInformer />
       {error && <ErrorMessage errorMsg={errorMsg} />}
     </main>
   );
