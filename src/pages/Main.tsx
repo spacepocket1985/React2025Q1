@@ -1,21 +1,21 @@
 import { useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { CardList } from '../components/cards/cardsList/CardList';
-import { CardDetails } from '../components/cards/cardDetails/CardDetails';
-import { ErrorMessage } from '../components/error/errorMessage/ErrorMessage';
-import { SearchBar } from '../components/searchBar/SearchBar';
-import { Spinner } from '../components/spinner/Spinner';
-import { Pagination } from '../components/pagination/Pagination';
+import { CardList } from '@components/cards/cardsList/CardList';
+import { CardDetails } from '@components/cards/cardDetails/CardDetails';
+import { ErrorMessage } from '@components/error/errorMessage/ErrorMessage';
+import { SearchBar } from '@components/searchBar/SearchBar';
+import { Spinner } from '@components/spinner/Spinner';
+import { Pagination } from '@components/pagination/Pagination';
+import { CardInformer } from '@components/cards/cardsInformer/CardsInformer';
 
 import { useGetAllCharactersQuery } from '../store/slices/apiSlice';
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
 import { cardClose, setPagination } from '../store/slices/appDataSlice';
-import { DefaultQuery } from '../service/futuramaAPI';
+import { DefaultQuery } from '@service/futuramaAPI';
+import { setCharacters } from '@store/slices/charactersSlice';
 
-import { setCharacters } from '../store/slices/charactersSlice';
 import styles from './Main.module.css';
-import { CardInformer } from '../components/cards/cardsInformer/CardsInformer';
 
 const Main: React.FC = () => {
   const [, setSearchParams] = useSearchParams();

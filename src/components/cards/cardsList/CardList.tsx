@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { Card } from '../card/Card';
-import { cardOpen } from '../../../store/slices/appDataSlice';
-import { useAppDispatch, useAppSelector } from '../../../hooks/storeHooks';
+import { cardOpen } from '@store/slices/appDataSlice';
+import { useAppDispatch, useAppSelector } from '@hooks/storeHooks';
 
 import styles from './CardList.module.css';
 

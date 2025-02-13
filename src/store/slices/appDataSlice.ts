@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DefaultQuery, DefaultPage } from '../../service/futuramaAPI';
+import { DefaultQuery, DefaultPage } from '@service/futuramaAPI';
 import { AppDataSliceType } from '../../types';
 import {
   detailsSearchParam,
   pageSearchParam,
   querySearchParam,
-} from '../../utils/getPageSearchParams';
+} from '@utils/getPageSearchParams';
 
 const initialState: AppDataSliceType = {
   total: 0,

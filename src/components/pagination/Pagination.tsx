@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
-import { setPage } from '../../store/slices/appDataSlice';
+import { useAppDispatch, useAppSelector } from '@hooks/storeHooks';
+import { setPage } from '@store/slices/appDataSlice';
 
 import styles from './Pagination.module.css';
 

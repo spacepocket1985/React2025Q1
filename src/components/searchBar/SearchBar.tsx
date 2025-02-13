@@ -1,10 +1,12 @@
 import React from 'react';
+
+import { useLocalStorage } from '@hooks/useLocalStorage';
+import { DefaultQuery } from '@service/futuramaAPI';
+import { useAppDispatch } from '@hooks/storeHooks';
+import { setQuery } from '@store/slices/appDataSlice';
+
 import HeaderPic from './headerPic.png';
 import styles from './SearchBar.module.css';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { DefaultQuery } from '../../service/futuramaAPI';
-import { useAppDispatch } from '../../hooks/storeHooks';
-import { setQuery } from '../../store/slices/appDataSlice';
 
 export const SearchBar: React.FC = () => {
   const [searchTerm, setSearchTerm] = useLocalStorage();

@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../../hooks/storeHooks';
+import { useAppDispatch, useAppSelector } from '@hooks/storeHooks';
 import {
   removeAllSelectedChars,
   unSelectAllCharacters,
-} from '../../../store/slices/charactersSlice';
+} from '@store/slices/charactersSlice';
 
 import styles from './CardsInformer.module.css';
 

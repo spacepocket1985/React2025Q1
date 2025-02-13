@@ -9,7 +9,7 @@ import {
   Query,
   Size,
   transformCharacter,
-} from '../../service/futuramaAPI';
+} from '@service/futuramaAPI';
 import { ApiResponse, Character } from '../../types';
 
 export const apiFuturama = createApi({

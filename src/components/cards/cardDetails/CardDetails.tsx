@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Spinner } from '../../spinner/Spinner';
-import { useAppDispatch, useAppSelector } from '../../../hooks/storeHooks';
-import { cardClose } from '../../../store/slices/appDataSlice';
-import { useGetCharacterQuery } from '../../../store/slices/apiSlice';
+import { useAppDispatch, useAppSelector } from '@hooks/storeHooks';
+import { cardClose } from '@store/slices/appDataSlice';
+import { useGetCharacterQuery } from '@store/slices/apiSlice';
 
 import styles from './CardDetails.module.css';
 import { BtnFavorite } from '../../btnFavorite/BtnFavorite';

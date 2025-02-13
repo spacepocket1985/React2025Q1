@@ -1,8 +1,8 @@
-import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
+import { useAppDispatch, useAppSelector } from '@hooks/storeHooks';
 import {
   selectCharacter,
   toggleFavoriteCharacter,
-} from '../../store/slices/charactersSlice';
+} from '@store/slices/charactersSlice';
 
 import styles from './BtnFavorite.module.css';
 import { Character } from '../../types';

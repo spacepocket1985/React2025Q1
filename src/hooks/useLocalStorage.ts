@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { querySearchParam, storageKey } from '../utils/getPageSearchParams';
+import { querySearchParam, storageKey } from '@utils/getPageSearchParams';
 import { DefaultQuery } from '../service/futuramaAPI';
 
 export const useLocalStorage = (): [
