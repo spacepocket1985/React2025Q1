@@ -9,6 +9,7 @@ export const mockCharacters: Character[] = [
     species: 'Human',
     createdAt: '2023-01-01T12:00:00Z',
     image: 'https://example.com/images/rick.png',
+    isSelected: true,
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ export const mockCharacters: Character[] = [
     species: 'Human',
     createdAt: '2023-01-02T12:00:00Z',
     image: 'https://example.com/images/morty.png',
+    isSelected: false,
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ export const mockCharacters: Character[] = [
     species: 'Human',
     createdAt: '2023-01-03T12:00:00Z',
     image: 'https://example.com/images/summer.png',
+    isSelected: false,
   },
   {
     id: 4,
@@ -36,6 +39,7 @@ export const mockCharacters: Character[] = [
     species: 'Human',
     createdAt: '2023-01-04T12:00:00Z',
     image: 'https://example.com/images/beth.png',
+    isSelected: false,
   },
   {
     id: 5,
@@ -45,6 +49,7 @@ export const mockCharacters: Character[] = [
     species: 'Human',
     createdAt: '2023-01-05T12:00:00Z',
     image: 'https://example.com/images/jerry.png',
+    isSelected: false,
   },
   {
     id: 6,
@@ -54,6 +59,7 @@ export const mockCharacters: Character[] = [
     species: 'Meeseeks',
     createdAt: '2023-01-06T12:00:00Z',
     image: 'https://example.com/images/meeseeks.png',
+    isSelected: false,
   },
 ];
 
