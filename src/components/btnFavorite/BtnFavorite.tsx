@@ -27,6 +27,7 @@ export const BtnFavorite: React.FC<{ favoriteCharacter: Character }> = ({
   return (
     <button
       type="button"
+      data-testid="btnFavorite"
       onClick={(e) => {
         handleToggle(e);
       }}
