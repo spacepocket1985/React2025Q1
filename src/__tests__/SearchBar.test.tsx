@@ -1,16 +1,19 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { SearchBar } from '../components/searchBar/SearchBar';
+import { store } from '@store/store';
+import { Provider } from 'react-redux';
 
 const storageKey = 'futuramaSearchTem';
 
 describe('tests for the SearchBar component', () => {
-  const onSetQuery = vi.fn();
   const renderSearchBar = () => {
     return render(
       <Router>
-        <SearchBar onSetQuery={onSetQuery} />
+        <Provider store={store}>
+          <SearchBar />
+        </Provider>
       </Router>
     );
   };

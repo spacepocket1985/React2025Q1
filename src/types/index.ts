@@ -1,3 +1,9 @@
+import {
+  apiFuturama,
+  useGetAllCharactersQuery,
+  useGetCharacterQuery,
+} from '@store/slices/apiSlice';
+
 export type EmptyPropsType = object;
 
 export type EmptyStateType = object;
@@ -32,3 +38,10 @@ export type AppDataSliceType = Omit<ApiResponse, 'size' | 'items'> & {
 };
 
 export type SearchBarState = { searchTerm: string };
+
+export type ReduxApiMockType = {
+  useGetAllCharactersQuery: typeof useGetAllCharactersQuery;
+  useGetCharacterQuery: typeof useGetCharacterQuery;
+  reducer: ReturnType<typeof apiFuturama.reducer>;
+  reducerPath: string;
+};

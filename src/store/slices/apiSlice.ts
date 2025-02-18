@@ -38,7 +38,9 @@ export const apiFuturama = createApi({
       },
       transformResponse: (response: ApiResponse) => ({
         ...response,
-        items: response.items.map((item) => transformCharacter(item)),
+        items: Array.isArray(response.items)
+          ? response.items.map((item) => transformCharacter(item))
+          : [],
       }),
     }),
     getCharacter: builder.query<Character, string>({
