@@ -71,3 +71,4 @@ export const apiFuturama = createApi({
 });
 
 export const { useGetAllCharactersQuery, useGetCharacterQuery } = apiFuturama;
+export const { getAllCharacters, getCharacter } = apiFuturama.endpoints;

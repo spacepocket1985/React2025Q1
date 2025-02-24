@@ -24,7 +24,11 @@ export const SearchBar: React.FC = () => {
 
   return (
     <>
-      <img className={styles.searchBarPic} src={HeaderPic} alt="header pic" />
+      <img
+        className={styles.searchBarPic}
+        src={HeaderPic.src}
+        alt="header pic"
+      />
       <form className={styles.searchBarWrapper} onSubmit={handleSubmit}>
         <input
           type="text"
@@ -32,7 +36,11 @@ export const SearchBar: React.FC = () => {
           onChange={handleInputChange}
           data-testid="searchInput"
         />
-        <button type="submit" data-testid="serachSubmit">
+        <button
+          className={styles.searchBtn}
+          type="submit"
+          data-testid="serachSubmit"
+        >
           search
         </button>
       </form>

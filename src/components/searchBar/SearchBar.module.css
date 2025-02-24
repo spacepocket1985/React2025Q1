@@ -12,6 +12,6 @@
   padding-bottom: 1rem;
 }
 
-button:disabled {
+.searchBtn:disabled {
   background-color: brown;
 }

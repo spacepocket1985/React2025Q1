@@ -13,6 +13,7 @@ const initialState: AppDataSliceType = {
   page: pageSearchParam,
   pages: DefaultPage,
   cardDetails: detailsSearchParam || DefaultQuery,
+  isLoading: true,
 };
 
 const appDataSlice = createSlice({
@@ -43,9 +44,18 @@ const appDataSlice = createSlice({
       state.page = action.payload.page;
       state.pages = action.payload.pages;
     },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
 export default appDataSlice.reducer;
-export const { setPage, setQuery, cardClose, cardOpen, setPagination } =
-  appDataSlice.actions;
+export const {
+  setPage,
+  setQuery,
+  cardClose,
+  cardOpen,
+  setPagination,
+  setLoading,
+} = appDataSlice.actions;

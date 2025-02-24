@@ -1,27 +1,20 @@
 import React from 'react';
 
-import { Spinner } from '../../spinner/Spinner';
-import { useAppDispatch, useAppSelector } from '@hooks/storeHooks';
+import { useAppDispatch } from '@hooks/storeHooks';
 import { cardClose } from '@store/slices/appDataSlice';
-import { useGetCharacterQuery } from '@store/slices/apiSlice';
 
 import styles from './CardDetails.module.css';
 import { BtnFavorite } from '../../btnFavorite/BtnFavorite';
+import { Character } from '../../../types/index';
 
-export const CardDetails: React.FC = () => {
+export const CardDetails: React.FC<{ character: Character }> = ({
+  character,
+}) => {
   const dispatch = useAppDispatch();
-  const { cardDetails } = useAppSelector((state) => state.appData);
-  const { characters } = useAppSelector((state) => state.characters);
 
-  const itemId = String(characters[Number(cardDetails) - 1].id);
-  const { data: character, isFetching } = useGetCharacterQuery(itemId);
   const handleCloseDetails = () => {
     dispatch(cardClose());
   };
-
-  if (isFetching) {
-    return <Spinner />;
-  }
 
   if (!character) {
     return <p>{'Unfortunately, nothing was found for your request.'}</p>;
@@ -29,7 +22,7 @@ export const CardDetails: React.FC = () => {
 
   return (
     <div className={styles.cardWrapper}>
-      <BtnFavorite favoriteCharacter={characters[Number(cardDetails) - 1]} />
+      <BtnFavorite favoriteCharacter={character} />
       <button
         data-testid="closeDetailsBtn"
         className={styles.btnClose}

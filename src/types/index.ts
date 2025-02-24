@@ -35,6 +35,7 @@ export type AppState = Omit<ApiResponse, 'size'> & {
 export type AppDataSliceType = Omit<ApiResponse, 'size' | 'items'> & {
   query: string;
   cardDetails: string;
+  isLoading: boolean;
 };
 
 export type SearchBarState = { searchTerm: string };
