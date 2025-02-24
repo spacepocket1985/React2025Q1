@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { useAppDispatch, useAppSelector } from '@hooks/storeHooks';
+import { useAppDispatch } from '@hooks/storeHooks';
 import { setPage } from '@store/slices/appDataSlice';
 
 import styles from './Pagination.module.css';
 
-export const Pagination: React.FC = () => {
-  const { page: currentPage, pages: totalPages } = useAppSelector(
-    (state) => state.appData
-  );
+export const Pagination: React.FC<{
+  currentPage: number;
+  totalPages: number;
+}> = React.memo(({ currentPage, totalPages }) => {
   const dispatch = useAppDispatch();
   const onPageChange = (pageNum: number) => dispatch(setPage(pageNum));
   const pages = [...Array(totalPages)].map((_, index) => index + 1);
@@ -71,4 +71,4 @@ export const Pagination: React.FC = () => {
       )}
     </div>
   );
-};
+});

@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
   pageSearchParam = Number(UrlParams.get('page')) || DefaultPage;
 
   querySearchParam = UrlParams.get('query') || localStorage.getItem(storageKey);
-  detailsSearchParam = UrlParams.get('details');
+  detailsSearchParam = UrlParams.get('cardDetails');
 }
 
 export { pageSearchParam, querySearchParam, detailsSearchParam };

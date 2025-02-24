@@ -14,11 +14,7 @@ import {
   getCharacter,
 } from '@store/slices/apiSlice';
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
-import {
-  cardClose,
-  setLoading,
-  setPagination,
-} from '@store/slices/appDataSlice';
+import { cardClose, setLoading } from '@store/slices/appDataSlice';
 import { DefaultPage, DefaultQuery } from '@service/futuramaAPI';
 import { setCharacters } from '@store/slices/charactersSlice';
 
@@ -61,9 +57,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     return {
       props: {
         response,
-        cardDetails,
-        pageNum,
-        filterWord,
         responseWithDetails,
       },
     };
@@ -75,19 +68,12 @@ export type SearchPagePropsType = {
     data: ApiResponse;
     error: FetchBaseQueryError | SerializedError | null;
   };
-  responseWithDetails: {
-    data: Character | null;
-  };
-  cardDetails: string;
-  filterWord: string;
-  pageNum: string;
+  responseWithDetails: Character | null;
 };
 
 const Main: React.FC<SearchPagePropsType> = ({
   response,
   responseWithDetails,
-  filterWord,
-  cardDetails: details,
 }) => {
   const cardListRef = useRef(null);
   const mainRef = useRef(null);
@@ -106,28 +92,19 @@ const Main: React.FC<SearchPagePropsType> = ({
   useEffect(() => {
     if (response.data && response.data.items) {
       dispatch(setLoading(false));
-      const { items, page, pages } = response.data;
-      const queryStr = {
-        filterWord: query,
-        pageNum: currentPage,
-        ...(cardDetails !== '' && { cardDetails: details }),
-      };
-      dispatch(setPagination({ page, pages }));
+      const { items } = response.data;
       dispatch(setCharacters(items));
+      const queryStr = {
+        query,
+        page: String(currentPage),
+        ...(cardDetails !== '' && { cardDetails }),
+      };
+
       if (JSON.stringify(router.query) !== JSON.stringify(queryStr)) {
-        router.push({ pathname: '/', query });
+        router.replace({ pathname: '/', query: queryStr });
       }
     }
-  }, [
-    details,
-    response.data,
-    router,
-    dispatch,
-    filterWord,
-    cardDetails,
-    query,
-    currentPage,
-  ]);
+  }, [response.data, router, cardDetails, currentPage, dispatch, query]);
 
   const onMainClick = (e: React.MouseEvent): void => {
     if (e.target === cardListRef.current || e.target === mainRef.current) {
@@ -140,7 +117,7 @@ const Main: React.FC<SearchPagePropsType> = ({
   ) : (
     <div className={styles.wrapper}>
       <CardList ref={cardListRef} characters={response.data.items} />
-      {cardDetails && <CardDetails character={responseWithDetails.data} />}
+      {cardDetails && <CardDetails character={responseWithDetails} />}
     </div>
   );
 
@@ -151,7 +128,10 @@ const Main: React.FC<SearchPagePropsType> = ({
   return (
     <main className={styles.main} ref={mainRef} onClick={onMainClick}>
       <SearchBar />
-      <Pagination />
+      <Pagination
+        currentPage={response.data.page}
+        totalPages={response.data.total}
+      />
       {cardsOrSpinner}
       <CardInformer />
       {errorMsg}
