@@ -1,4 +1,11 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  CombinedState,
+  createApi,
+  EndpointDefinitions,
+  fetchBaseQuery,
+} from '@reduxjs/toolkit/query/react';
+import { Action, PayloadAction } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
 import {
   BaseUrl,
   DefaultOrder,
@@ -11,10 +18,23 @@ import {
   transformCharacter,
 } from '@service/futuramaAPI';
 import { ApiResponse, Character } from '../../types';
+import { RootState } from '@store/store';
+
+function isHydrateAction(action: Action): action is PayloadAction<RootState> {
+  return action.type === HYDRATE;
+}
 
 export const apiFuturama = createApi({
   reducerPath: 'apiFuturama',
   baseQuery: fetchBaseQuery({ baseUrl: BaseUrl }),
+  extractRehydrationInfo(
+    action,
+    { reducerPath }
+  ): CombinedState<EndpointDefinitions, string, 'apiFuturama'> | undefined {
+    if (isHydrateAction(action)) {
+      return action.payload[reducerPath];
+    }
+  },
   tagTypes: ['Characters'],
   endpoints: (builder) => ({
     getAllCharacters: builder.query<

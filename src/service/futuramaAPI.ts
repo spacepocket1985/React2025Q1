@@ -1,5 +1,5 @@
 import { Character } from '../types';
-import noImage from '../assets/noImage.png';
+import noImage from '@assets/noImage.png';
 
 export const BaseUrl = 'https://futuramaapi.com/api/characters';
 export const Size = '&size=';
@@ -15,7 +15,7 @@ export const transformCharacter = (character: Character): Character => {
   const updatedCharacter = { ...character };
 
   if (character.image === null) {
-    updatedCharacter.image = noImage;
+    updatedCharacter.image = noImage.src;
   }
   updatedCharacter.isSelected = false;
   return updatedCharacter;

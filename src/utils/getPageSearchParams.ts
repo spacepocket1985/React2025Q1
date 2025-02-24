@@ -2,9 +2,16 @@ import { DefaultPage } from '../service/futuramaAPI';
 
 export const storageKey = 'futuramaSearchTem';
 
-const UrlParams = new URLSearchParams(window.location.search);
+let pageSearchParam = DefaultPage;
+let querySearchParam = null;
+let detailsSearchParam = null;
 
-export const pageSearchParam = Number(UrlParams.get('page')) || DefaultPage;
-export const querySearchParam =
-  UrlParams.get('query') || localStorage.getItem(storageKey);
-export const detailsSearchParam = UrlParams.get('details');
+if (typeof window !== 'undefined') {
+  const UrlParams = new URLSearchParams(window.location.search);
+  pageSearchParam = Number(UrlParams.get('page')) || DefaultPage;
+
+  querySearchParam = UrlParams.get('query') || localStorage.getItem(storageKey);
+  detailsSearchParam = UrlParams.get('details');
+}
+
+export { pageSearchParam, querySearchParam, detailsSearchParam };
