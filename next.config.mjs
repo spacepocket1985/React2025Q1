@@ -2,11 +2,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'futuramaapi.com',
+        port: '',
+        pathname: '/static/**',
+      },
+    ],
   },
   distDir: './dist',
   reactStrictMode: true,
-  swcMinify: true,
   typescript: {
     ignoreBuildErrors: true,
   },

@@ -38,8 +38,8 @@ export const CardDetails: React.FC<{ character: Character }> = React.memo(
           X
         </button>
         <Image
-          width={100}
-          height={100}
+          width={300}
+          height={300}
           className={styles.cardImg}
           src={character.image}
           alt={character.name}
