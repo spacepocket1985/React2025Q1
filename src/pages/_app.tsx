@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 
 import ErrorBoundary from '@components/error/errorBoundary/ErrorBoundary';
+import { ThemeSwitcher } from '@components/themeSwitcher/ThemeSwitcher';
 
 import { ThemeProvider } from '@context/ThemeContext';
 import { wrapper } from '@store/store';
@@ -15,6 +16,7 @@ const MyApp = ({ Component, ...rest }: AppProps): React.JSX.Element => {
     <ErrorBoundary>
       <Provider store={store}>
         <ThemeProvider>
+          <ThemeSwitcher />
           <Component {...props.pageProps} />
         </ThemeProvider>
       </Provider>

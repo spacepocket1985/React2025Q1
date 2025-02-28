@@ -68,7 +68,7 @@ export type SearchPagePropsType = {
     data: ApiResponse;
     error: FetchBaseQueryError | SerializedError | null;
   };
-  responseWithDetails: { data: Character | null };
+  responseWithDetails: { data: Character };
 };
 
 const Main: React.FC<SearchPagePropsType> = ({
@@ -117,7 +117,8 @@ const Main: React.FC<SearchPagePropsType> = ({
   ) : (
     <div className={styles.wrapper}>
       <CardList ref={cardListRef} characters={response.data.items} />
-      {responseWithDetails?.data && (
+      {!isLoading && cardDetails && !responseWithDetails && <Spinner />}
+      {responseWithDetails?.data && cardDetails && (
         <CardDetails character={responseWithDetails.data} />
       )}
     </div>
