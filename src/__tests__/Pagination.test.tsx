@@ -1,4 +1,4 @@
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Pagination } from '../components/pagination/Pagination';
@@ -16,6 +16,7 @@ describe('tests for the Pagination component', () => {
       page: 2,
       pages: 43,
       cardDetails: '',
+      isLoading: false,
     },
     characters: {
       characters: mockCharacters,
@@ -29,7 +30,7 @@ describe('tests for the Pagination component', () => {
     return render(
       <Router>
         <Provider store={store}>
-          <Pagination />
+          <Pagination currentPage={2} totalPages={43} />
         </Provider>
       </Router>
     );
@@ -47,7 +48,7 @@ describe('tests for the Pagination component', () => {
 
     const nextButton = screen.getByText('Next');
     await act(async () => {
-      nextButton.click();
+      fireEvent.click(nextButton);
     });
 
     const { appData } = store.getState();

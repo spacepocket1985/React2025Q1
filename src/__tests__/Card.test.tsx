@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { AppRootState } from '@store/store';
 import { createTestStore } from './utls/createTestStore';
 
-describe('tests for the Card List component', () => {
+describe('tests for the Card component', () => {
   const initialState: Partial<AppRootState> = {
     characters: {
       characters: mockCharacters,

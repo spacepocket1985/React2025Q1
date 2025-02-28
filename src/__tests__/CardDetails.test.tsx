@@ -15,6 +15,7 @@ describe('tests for the Detailed Card component', () => {
       page: 2,
       pages: 43,
       cardDetails: '2',
+      isLoading: false,
     },
     characters: {
       characters: mockCharacters,
@@ -27,11 +28,12 @@ describe('tests for the Detailed Card component', () => {
     render(
       <Router>
         <Provider store={store}>
-          <CardDetails />
+          <CardDetails character={mockCharacters[1]} />
         </Provider>
       </Router>
     );
     const characterName = await screen.findByText(mockCharacters[1].name);
+
     expect(characterName).toBeInTheDocument();
   });
 });

@@ -16,6 +16,7 @@ describe('tests for the CardInformer component', () => {
       page: 2,
       pages: 43,
       cardDetails: '2',
+      isLoading: false,
     },
     characters: {
       characters: mockCharacters,

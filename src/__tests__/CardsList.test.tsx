@@ -20,7 +20,7 @@ describe('CardList', () => {
 
     render(
       <Provider store={store}>
-        <CardList />
+        <CardList characters={mockCharacters} />
       </Provider>
     );
 
@@ -43,7 +43,7 @@ describe('CardList', () => {
 
     render(
       <Provider store={store}>
-        <CardList />
+        <CardList characters={[]} />
       </Provider>
     );
 
