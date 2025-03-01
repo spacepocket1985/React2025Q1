@@ -133,7 +133,7 @@ const Main: React.FC<SearchPagePropsType> = ({
       <SearchBar />
       <Pagination
         currentPage={response.data.page}
-        totalPages={response.data.total}
+        totalPages={response.data.pages}
       />
       {cardsOrSpinner}
       <CardInformer />

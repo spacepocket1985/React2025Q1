@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { MemoryRouter as Router } from 'react-router-dom';
 import { SearchBar } from '../components/searchBar/SearchBar';
 import { storeInstance } from '@store/store';
 import { Provider } from 'react-redux';
@@ -10,11 +9,9 @@ const storageKey = 'futuramaSearchTem';
 describe('tests for the SearchBar component', () => {
   const renderSearchBar = () => {
     return render(
-      <Router>
-        <Provider store={storeInstance}>
-          <SearchBar />
-        </Provider>
-      </Router>
+      <Provider store={storeInstance}>
+        <SearchBar />
+      </Provider>
     );
   };
   it('clicking the search button saves the entered value to the local storage', async () => {

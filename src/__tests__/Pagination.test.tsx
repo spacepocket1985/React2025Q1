@@ -1,6 +1,5 @@
 import { render, screen, act, fireEvent } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { Pagination } from '../components/pagination/Pagination';
 
 import { AppRootState } from '@store/store';
@@ -28,11 +27,9 @@ describe('tests for the Pagination component', () => {
 
   const renderPagination = () => {
     return render(
-      <Router>
-        <Provider store={store}>
-          <Pagination currentPage={2} totalPages={43} />
-        </Provider>
-      </Router>
+      <Provider store={store}>
+        <Pagination currentPage={2} totalPages={43} />
+      </Provider>
     );
   };
 
@@ -65,6 +62,39 @@ describe('tests for the Pagination component', () => {
     expect(screen.getByText('3')).toBeInTheDocument();
     expect(screen.getByText('4')).toBeInTheDocument();
     expect(screen.getByText('5')).toBeInTheDocument();
+    expect(screen.getByText('...')).toBeInTheDocument();
     expect(screen.getByText('43')).toBeInTheDocument();
+  });
+
+  it('check Next button on the last page', () => {
+    const lastPageStore = createTestStore({
+      ...initialState,
+      appData: { ...initialState.appData, page: 43 },
+    });
+
+    render(
+      <Provider store={lastPageStore}>
+        <Pagination currentPage={43} totalPages={43} />
+      </Provider>
+    );
+
+    const nextButton = screen.queryByText('Next');
+    expect(nextButton).not.toBeInTheDocument();
+  });
+
+  it('check Prev button on the first page', () => {
+    const lastPageStore = createTestStore({
+      ...initialState,
+      appData: { ...initialState.appData, page: 43 },
+    });
+
+    render(
+      <Provider store={lastPageStore}>
+        <Pagination currentPage={1} totalPages={43} />
+      </Provider>
+    );
+
+    const nextButton = screen.queryByText('Prev');
+    expect(nextButton).not.toBeInTheDocument();
   });
 });

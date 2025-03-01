@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { MemoryRouter as Router } from 'react-router-dom';
 import { CardDetails } from '../components/cards/cardDetails/CardDetails';
 import { mockCharacters } from './mock/mockedData';
 import { AppRootState } from '@store/store';
@@ -26,14 +25,27 @@ describe('tests for the Detailed Card component', () => {
   const store = createTestStore(initialState);
   it('check that the detailed card data is displayed when loading is false', async () => {
     render(
-      <Router>
-        <Provider store={store}>
-          <CardDetails character={mockCharacters[1]} />
-        </Provider>
-      </Router>
+      <Provider store={store}>
+        <CardDetails character={mockCharacters[1]} />
+      </Provider>
     );
     const characterName = await screen.findByText(mockCharacters[1].name);
+    const characterStatus = await screen.getByText(
+      `Status - ${mockCharacters[1].status}`
+    );
 
     expect(characterName).toBeInTheDocument();
+    expect(characterStatus).toBeInTheDocument();
+  });
+  it('check that an appropriate message is displayed if no character', async () => {
+    render(
+      <Provider store={store}>
+        <CardDetails character={null} />
+      </Provider>
+    );
+
+    expect(
+      screen.getByText('Unfortunately, nothing was found for your request.')
+    ).toBeInTheDocument();
   });
 });

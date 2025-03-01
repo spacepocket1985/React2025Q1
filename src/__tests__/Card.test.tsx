@@ -1,6 +1,5 @@
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 import { mockCharacters } from './mock/mockedData';
 import { Card } from '../components/cards/card/Card';
@@ -23,15 +22,13 @@ describe('tests for the Card component', () => {
   const onCardClick = vi.fn();
   const renderCard = () => {
     return render(
-      <Router>
-        <Provider store={store}>
-          <Card
-            item={mockCharacters[0]}
-            onCardClick={onCardClick}
-            index={index}
-          />
-        </Provider>
-      </Router>
+      <Provider store={store}>
+        <Card
+          item={mockCharacters[0]}
+          onCardClick={onCardClick}
+          index={index}
+        />
+      </Provider>
     );
   };
 

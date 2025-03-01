@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 import { useLocalStorage } from '@hooks/useLocalStorage';
 import { DefaultQuery } from '@service/futuramaAPI';
@@ -24,10 +25,12 @@ export const SearchBar: React.FC = () => {
 
   return (
     <>
-      <img
+      <Image
         className={styles.searchBarPic}
         src={HeaderPic.src}
         alt="header pic"
+        width={420}
+        height={162}
       />
       <form className={styles.searchBarWrapper} onSubmit={handleSubmit}>
         <input

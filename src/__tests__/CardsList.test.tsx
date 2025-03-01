@@ -29,6 +29,7 @@ describe('CardList', () => {
 
     expect(cards.length).toBe(mockCharacters.length);
     expect(cardSpanElements).toHaveLength(mockCharacters.length);
+    expect(screen.getByText(mockCharacters[0].name)).toBeInTheDocument();
   });
 
   it('check that an appropriate message is displayed if no cards are present', () => {

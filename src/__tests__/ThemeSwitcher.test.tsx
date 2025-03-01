@@ -3,7 +3,6 @@ import '@testing-library/jest-dom';
 import { ThemeProvider } from '../context/ThemeContext';
 import { ThemeSwitcher } from '../components/themeSwitcher/ThemeSwitcher';
 import { describe, it, expect } from 'vitest';
-import React from 'react';
 
 describe('Tests for ThemeSwitcher component', () => {
   it('toggles theme when button is clicked', async () => {

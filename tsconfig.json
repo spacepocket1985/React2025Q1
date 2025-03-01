@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/public/assets/*"],

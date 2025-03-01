@@ -11,6 +11,7 @@ export const Pagination: React.FC<{
 }> = React.memo(({ currentPage, totalPages }) => {
   const dispatch = useAppDispatch();
   const onPageChange = (pageNum: number) => dispatch(setPage(pageNum));
+
   const pages = [...Array(totalPages)].map((_, index) => index + 1);
 
   const siblingsCount = 2;

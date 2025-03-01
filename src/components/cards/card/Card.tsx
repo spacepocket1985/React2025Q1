@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { Character } from '../../../types';
 import { BtnFavorite } from '../../btnFavorite/BtnFavorite';
 
@@ -16,7 +17,14 @@ export const Card: React.FC<{
       data-testid="card"
     >
       <BtnFavorite favoriteCharacter={item} />
-      <img className={styles.cardImg} src={item.image} alt={item.name} />
+      <Image
+        width={260}
+        height={200}
+        className={styles.cardImg}
+        src={item.image}
+        alt={item.name}
+      />
+
       <p className={styles.cardTitle}>{item.name}</p>
     </div>
   );
