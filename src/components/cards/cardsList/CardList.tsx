@@ -17,8 +17,8 @@ export const CardList: React.FC<{
     Number(currentPage)
   );
 
-  const renderItems = characters.map((item, index) => (
-    <Card item={item} index={index + 1} key={item.id} />
+  const renderItems = characters.map((item) => (
+    <Card item={item} key={item.id} />
   ));
 
   return (

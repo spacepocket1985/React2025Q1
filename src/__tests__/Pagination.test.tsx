@@ -7,6 +7,16 @@ import { Provider } from 'react-redux';
 import { mockCharacters } from './mock/mockedData';
 import { createTestStore } from './utls/createTestStore';
 
+const mockPush = vi.fn();
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(() => ({
+    push: mockPush,
+  })),
+  useSearchParams: vi.fn(() => ({
+    get: vi.fn(),
+  })),
+}));
+
 describe('tests for the Pagination component', () => {
   const initialState: Partial<AppRootState> = {
     appData: {
@@ -47,9 +57,7 @@ describe('tests for the Pagination component', () => {
     await act(async () => {
       fireEvent.click(nextButton);
     });
-
-    const { appData } = store.getState();
-    expect(appData.page).toBe(initialState.appData!.page + 1);
+    expect(mockPush).toHaveBeenCalledWith(expect.stringContaining('page=3'));
   });
 
   it('displays the correct page numbers and ellipsis', async () => {
@@ -67,13 +75,8 @@ describe('tests for the Pagination component', () => {
   });
 
   it('check Next button on the last page', () => {
-    const lastPageStore = createTestStore({
-      ...initialState,
-      appData: { ...initialState.appData, page: 43 },
-    });
-
     render(
-      <Provider store={lastPageStore}>
+      <Provider store={store}>
         <Pagination currentPage={43} totalPages={43} />
       </Provider>
     );
@@ -83,13 +86,8 @@ describe('tests for the Pagination component', () => {
   });
 
   it('check Prev button on the first page', () => {
-    const lastPageStore = createTestStore({
-      ...initialState,
-      appData: { ...initialState.appData, page: 43 },
-    });
-
     render(
-      <Provider store={lastPageStore}>
+      <Provider store={store}>
         <Pagination currentPage={1} totalPages={43} />
       </Provider>
     );

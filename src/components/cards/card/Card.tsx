@@ -10,7 +10,6 @@ import styles from './Card.module.css';
 
 export const Card: React.FC<{
   item: Character;
-  index: number;
 }> = React.memo(({ item }) => {
   const router = useRouter();
   const searchParams = useSearchParams();

@@ -6,6 +6,21 @@ import { Provider } from 'react-redux';
 
 const storageKey = 'futuramaSearchTem';
 
+// vi.mock('next/image', () => {
+//   return ({ src, alt, width, height }) => {
+//     return <Image src={src} alt={alt} width={width} height={height} />;
+//   };
+// });
+
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+  })),
+  useSearchParams: vi.fn(() => ({
+    get: vi.fn(),
+  })),
+}));
+
 describe('tests for the SearchBar component', () => {
   const renderSearchBar = () => {
     return render(
