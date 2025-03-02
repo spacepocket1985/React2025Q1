@@ -5,8 +5,8 @@ import { Suspense } from 'react';
 import styles from './CardList.module.css';
 
 export const CardList: React.FC<{
-  query: string | undefined;
-  currentPage: number | undefined;
+  query: string;
+  currentPage: number;
 }> = async ({ query, currentPage }) => {
   const msgForEmptyArr = 'Unfortunately, nothing was found for your request.';
 

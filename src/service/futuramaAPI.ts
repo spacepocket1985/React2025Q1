@@ -35,7 +35,7 @@ export const getAllCharacters = async (
     pageNum +
     Size +
     DefaultSize;
-  console.log('filterWord ', filterWord);
+
   const response = await fetch(url);
   if (!response.ok) throw new Error('Unable to fetch');
   const results: ApiResponse = await response.json();

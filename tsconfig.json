@@ -12,7 +12,6 @@
       "@context/*": ["src/context/*"],
       "@utils/*": ["src/utils/*"],
       "@routes/*": ["src/routes/*"],
-      "@pages/*": ["src/pages/*"],
       "@types/*": ["src/types/*"],
       "@hooks/*": ["src/hooks/*"],
       "@store/*": ["src/store/*"],

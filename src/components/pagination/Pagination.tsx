@@ -15,6 +15,7 @@ export const Pagination: React.FC<{
   const onPageChange = (pageNum: number) => {
     const newParams = new URLSearchParams(searchParams?.toString());
     newParams.set('page', String(pageNum));
+    newParams.delete('cardDetails');
 
     router.push(`/?${newParams.toString()}`);
   };

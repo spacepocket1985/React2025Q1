@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -14,6 +14,25 @@ export const SearchBar: React.FC = () => {
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useLocalStorage();
 
+  useEffect(() => {
+    const newParams = new URLSearchParams(searchParams?.toString());
+    newParams.delete('cardDetails');
+    if (
+      (newParams && newParams.get('query')) !== searchTerm ||
+      !newParams.get('query')
+    ) {
+      newParams.set('query', searchTerm || DefaultQuery);
+
+      if (!newParams.get('page')) {
+        newParams.set('page', '1');
+      }
+
+      router.push(`?${newParams.toString()}`);
+    }
+    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
@@ -24,7 +43,7 @@ export const SearchBar: React.FC = () => {
     setSearchTerm(trimmedSearchTerm);
     const newParams = new URLSearchParams(searchParams?.toString());
     newParams.set('query', trimmedSearchTerm);
-
+    newParams.delete('cardDetails');
     router.push(`/?${newParams.toString()}`);
   };
 
