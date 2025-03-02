@@ -24,12 +24,12 @@ const charactersSlice = createSlice({
         return { ...character, isSelected };
       });
     },
-    selectCharacter: (state, action: PayloadAction<number>) => {
-      const indexForUpdate = state.characters.findIndex(
-        (char) => char.id === action.payload
+    selectCharacter: (state, action: PayloadAction<Character>) => {
+      const indexForUpdate = state.selectedCharacters.findIndex(
+        (char) => char.id === action.payload.id
       );
-      state.characters[indexForUpdate].isSelected =
-        !state.characters[indexForUpdate].isSelected;
+      state.selectedCharacters[indexForUpdate].isSelected =
+        !state.selectedCharacters[indexForUpdate].isSelected;
     },
 
     toggleFavoriteCharacter: (state, action: PayloadAction<Character>) => {

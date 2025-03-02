@@ -1,4 +1,5 @@
-import { Character } from '../types';
+import { querySearchParam } from '@utils/getPageSearchParams';
+import { ApiResponse, Character } from '../types';
 import noImage from '@assets/noImage.png';
 
 export const BaseUrl = 'https://futuramaapi.com/api/characters';
@@ -19,4 +20,36 @@ export const transformCharacter = (character: Character): Character => {
   }
   updatedCharacter.isSelected = false;
   return updatedCharacter;
+};
+
+export const getAllCharacters = async (
+  filterWord = querySearchParam,
+  pageNum = DefaultPage
+): Promise<ApiResponse> => {
+  const url =
+    BaseUrl +
+    DefaultOrder +
+    Query +
+    filterWord +
+    Page +
+    pageNum +
+    Size +
+    DefaultSize;
+  console.log('filterWord ', filterWord);
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('Unable to fetch');
+  const results: ApiResponse = await response.json();
+  return {
+    ...results,
+    items: Array.isArray(results.items)
+      ? results.items.map((item) => transformCharacter(item))
+      : [],
+  };
+};
+
+export const getCharacter = async (id: number): Promise<Character> => {
+  const response = await fetch(`${BaseUrl}/${id}`);
+  if (!response.ok) throw new Error('Unable to fetch');
+  const result: Character = await response.json();
+  return transformCharacter(result);
 };

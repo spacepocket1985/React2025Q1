@@ -1,35 +1,22 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Image from 'next/image';
-
-import { useAppDispatch } from '@hooks/storeHooks';
-import { cardClose } from '@store/slices/appDataSlice';
-
-import styles from './CardDetails.module.css';
 import { BtnFavorite } from '../../btnFavorite/BtnFavorite';
-import { Character } from '../../../types/index';
+import { getCharacter } from '@service/futuramaAPI';
+import { BtnClose } from '@components/btnClose/BtnClose';
+import styles from './CardDetails.module.css';
+import { Spinner } from '@components/spinner/Spinner';
 
-export const CardDetails: React.FC<{ character: Character }> = React.memo(
-  ({ character }) => {
-    const dispatch = useAppDispatch();
-
-    const handleCloseDetails = () => {
-      dispatch(cardClose());
-    };
-
-    if (!character) {
-      return <p>{'Unfortunately, nothing was found for your request.'}</p>;
-    }
-
-    return (
-      <div className={styles.cardWrapper}>
+export const CardDetails: React.FC<{ id: string | undefined }> = async ({
+  id,
+}) => {
+  if (!id) return;
+  const character = await getCharacter(Number(id));
+  return (
+    <div className={styles.cardWrapper}>
+      <Suspense key="details" fallback={<Spinner />}>
         <BtnFavorite favoriteCharacter={character} />
-        <button
-          data-testid="closeDetailsBtn"
-          className={styles.btnClose}
-          onClick={handleCloseDetails}
-        >
-          X
-        </button>
+        <BtnClose />
+
         <Image
           width={300}
           height={300}
@@ -40,7 +27,7 @@ export const CardDetails: React.FC<{ character: Character }> = React.memo(
         <p className={styles.cardTitle}>{character.name}</p>
         <p className={styles.cardTitle}>{`Gender - ${character.gender}`}</p>
         <p className={styles.cardTitle}>{`Status - ${character.status}`}</p>
-      </div>
-    );
-  }
-);
+      </Suspense>
+    </div>
+  );
+};

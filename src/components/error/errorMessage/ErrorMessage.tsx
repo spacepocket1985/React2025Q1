@@ -1,3 +1,4 @@
+'use client';
 import errorImg from './error.gif';
 import Image from 'next/image';
 import styles from './ErrorMessage.module.css';

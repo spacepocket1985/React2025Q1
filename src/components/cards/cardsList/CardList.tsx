@@ -1,30 +1,31 @@
-import { forwardRef } from 'react';
 import { Card } from '../card/Card';
-import { cardOpen } from '@store/slices/appDataSlice';
-import { useAppDispatch } from '@hooks/storeHooks';
-
+import { getAllCharacters } from '@service/futuramaAPI';
+import { Spinner } from '@components/spinner/Spinner';
+import { Suspense } from 'react';
 import styles from './CardList.module.css';
-import { Character } from '../../../types/index';
 
-export const CardList = forwardRef<HTMLDivElement, { characters: Character[] }>(
-  ({ characters }, ref) => {
-    const dispatch = useAppDispatch();
-    const onCardClick = (index: number) => dispatch(cardOpen(index));
-    const msgForEmptyArr = 'Unfortunately, nothing was found for your request.';
+export const CardList: React.FC<{
+  query: string | undefined;
+  currentPage: number | undefined;
+}> = async ({ query, currentPage }) => {
+  const msgForEmptyArr = 'Unfortunately, nothing was found for your request.';
 
-    const renderItems = characters.map((item, index) => (
-      <Card
-        item={item}
-        index={index + 1}
-        key={item.id}
-        onCardClick={onCardClick}
-      />
-    ));
+  if (!query && !currentPage) return;
 
-    return (
-      <div className={styles.cardListWrapper} ref={ref}>
+  const { items: characters } = await getAllCharacters(
+    query,
+    Number(currentPage)
+  );
+
+  const renderItems = characters.map((item, index) => (
+    <Card item={item} index={index + 1} key={item.id} />
+  ));
+
+  return (
+    <div className={styles.cardListWrapper}>
+      <Suspense key="details" fallback={<Spinner />}>
         {renderItems.length > 0 ? renderItems : msgForEmptyArr}
-      </div>
-    );
-  }
-);
+      </Suspense>
+    </div>
+  );
+};

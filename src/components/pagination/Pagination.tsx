@@ -1,7 +1,7 @@
+'use client';
 import React from 'react';
 
-import { useAppDispatch } from '@hooks/storeHooks';
-import { setPage } from '@store/slices/appDataSlice';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import styles from './Pagination.module.css';
 
@@ -9,8 +9,15 @@ export const Pagination: React.FC<{
   currentPage: number;
   totalPages: number;
 }> = React.memo(({ currentPage, totalPages }) => {
-  const dispatch = useAppDispatch();
-  const onPageChange = (pageNum: number) => dispatch(setPage(pageNum));
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const onPageChange = (pageNum: number) => {
+    const newParams = new URLSearchParams(searchParams?.toString());
+    newParams.set('page', String(pageNum));
+
+    router.push(`/?${newParams.toString()}`);
+  };
 
   const pages = [...Array(totalPages)].map((_, index) => index + 1);
 

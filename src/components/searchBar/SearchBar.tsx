@@ -1,17 +1,19 @@
+'use client';
 import React from 'react';
 import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useLocalStorage } from '@hooks/useLocalStorage';
 import { DefaultQuery } from '@service/futuramaAPI';
-import { useAppDispatch } from '@hooks/storeHooks';
-import { setQuery } from '@store/slices/appDataSlice';
 
 import HeaderPic from './headerPic.png';
 import styles from './SearchBar.module.css';
 
 export const SearchBar: React.FC = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useLocalStorage();
-  const dispatch = useAppDispatch();
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
@@ -20,7 +22,10 @@ export const SearchBar: React.FC = () => {
     event.preventDefault();
     const trimmedSearchTerm = searchTerm!.trim();
     setSearchTerm(trimmedSearchTerm);
-    dispatch(setQuery(trimmedSearchTerm));
+    const newParams = new URLSearchParams(searchParams?.toString());
+    newParams.set('query', trimmedSearchTerm);
+
+    router.push(`/?${newParams.toString()}`);
   };
 
   return (
@@ -31,6 +36,7 @@ export const SearchBar: React.FC = () => {
         alt="header pic"
         width={420}
         height={162}
+        priority
       />
       <form className={styles.searchBarWrapper} onSubmit={handleSubmit}>
         <input
