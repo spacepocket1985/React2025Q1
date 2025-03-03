@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-
 import { BtnClose } from '@components/btnClose/BtnClose';
 
 vi.mock('@hooks/storeHooks', () => ({
