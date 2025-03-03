@@ -7,6 +7,15 @@ import { CardList } from '@components/cards/cardsList/CardList';
 import { createTestStore } from './utls/createTestStore';
 import { mockCharacters } from './mock/mockedData';
 
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+  })),
+  useSearchParams: vi.fn(() => ({
+    get: vi.fn(),
+  })),
+}));
+
 describe('CardList', () => {
   it('verify that the component renders the specified number of cards', async () => {
     const initialState: Partial<AppRootState> = {
@@ -20,7 +29,7 @@ describe('CardList', () => {
 
     render(
       <Provider store={store}>
-        <CardList characters={mockCharacters} />
+        <CardList items={mockCharacters} />
       </Provider>
     );
 
@@ -44,7 +53,7 @@ describe('CardList', () => {
 
     render(
       <Provider store={store}>
-        <CardList characters={[]} />
+        <CardList items={[]} />
       </Provider>
     );
 

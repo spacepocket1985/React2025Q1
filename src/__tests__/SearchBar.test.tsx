@@ -6,12 +6,6 @@ import { Provider } from 'react-redux';
 
 const storageKey = 'futuramaSearchTem';
 
-// vi.mock('next/image', () => {
-//   return ({ src, alt, width, height }) => {
-//     return <Image src={src} alt={alt} width={width} height={height} />;
-//   };
-// });
-
 vi.mock('next/navigation', () => ({
   useRouter: vi.fn(() => ({
     push: vi.fn(),

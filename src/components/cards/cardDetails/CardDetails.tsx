@@ -5,9 +5,7 @@ import { getCharacter } from '@service/futuramaAPI';
 import { BtnClose } from '@components/btnClose/BtnClose';
 import styles from './CardDetails.module.css';
 
-export const CardDetails: React.FC<{ id: string | undefined }> = async ({
-  id,
-}) => {
+export const CardDetails: React.FC<{ id: string }> = async ({ id }) => {
   if (!id) return;
   const character = await getCharacter(Number(id));
   return (

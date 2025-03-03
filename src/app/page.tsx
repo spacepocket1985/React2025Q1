@@ -13,14 +13,14 @@ const Main: React.FC<{
 }> = async ({ searchParams }) => {
   const { query, page: currentPage, cardDetails } = await searchParams;
   const pageNum = currentPage ? Number(currentPage) : DefaultPage;
-  const { page, pages } = await getAllCharacters(query, pageNum);
+  const { page, pages, items } = await getAllCharacters(query, pageNum);
 
   return (
     <main className={styles.main}>
       <SearchBar />
       <Pagination currentPage={page} totalPages={pages} />
       <div className={styles.wrapper}>
-        <CardList query={query} currentPage={page} />
+        <CardList items={items} />
         {cardDetails && (
           <Suspense key="details" fallback={<Spinner />}>
             <CardDetails id={cardDetails} />

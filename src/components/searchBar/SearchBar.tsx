@@ -51,7 +51,7 @@ export const SearchBar: React.FC = () => {
     <>
       <Image
         className={styles.searchBarPic}
-        src={HeaderPic.src}
+        src={HeaderPic}
         alt="header pic"
         width={420}
         height={162}
