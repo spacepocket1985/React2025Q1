@@ -1,4 +1,5 @@
 export enum RoutePaths {
-  Main = '/search',
-  PAGE404 = '*',
+  Main = '/',
+  PAGE404 = '/not-found',
+  AnyRout = '*',
 }
