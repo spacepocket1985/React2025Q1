@@ -1,20 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import { apiFuturama } from './slices/apiSlice';
-import appDataReducer from './slices/appDataSlice';
-import charactersReducer from './slices/charactersSlice';
+
+import selectDataReducer from './slices/selectDataSlice';
+import formsDataReducer from './slices/formsDataSlice';
 
 export const rootReducer = combineReducers({
-  [apiFuturama.reducerPath]: apiFuturama.reducer,
-  appData: appDataReducer,
-  characters: charactersReducer,
+  selectData: selectDataReducer,
+  formsData: formsDataReducer,
 });
 
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiFuturama.middleware),
+    getDefaultMiddleware({ immutableCheck: false, serializableCheck: false }),
 });
 
 export type AppRootState = ReturnType<typeof store.getState>;
+export type AppStore = typeof store;
 export type AppDispatch = typeof store.dispatch;

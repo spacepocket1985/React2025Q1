@@ -1,13 +1,17 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { publicRoutes } from './appRoutes';
 import { RoutePaths } from './routePaths';
+import { publicRoutes } from './routes';
 
 export const AppRouter = (): JSX.Element => {
   return (
     <Routes>
-      <Route path={'/'} element={<Navigate to={RoutePaths.Main} replace />} />
+      <Route
+        path="/"
+        element={<Navigate to={RoutePaths.MainPage} replace />}
+      ></Route>
+
       {publicRoutes.map(({ path, Page }) => (
-        <Route key={path} path={path} element={<Page />} />
+        <Route path={path} key={path} element={<Page />} />
       ))}
     </Routes>
   );

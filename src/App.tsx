@@ -1,13 +1,14 @@
 import { BrowserRouter as Router } from 'react-router-dom';
+
+import Menu from './components/menu/Menu';
 import { AppRouter } from './routes/AppRouter';
 
-import { ThemeSwitcher } from './components/themeSwitcher/ThemeSwitcher';
-import './App.css';
+import './styles/global.css';
 
-export const App = () => {
+const App: React.FC = () => {
   return (
     <Router>
-      <ThemeSwitcher />
+      <Menu />
       <AppRouter />
     </Router>
   );

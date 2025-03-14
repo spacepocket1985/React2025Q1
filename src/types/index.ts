@@ -1,47 +1,35 @@
-import {
-  apiFuturama,
-  useGetAllCharactersQuery,
-  useGetCharacterQuery,
-} from '@store/slices/apiSlice';
+export type FormDataType = {
+  name?: string;
+  age?: number | string;
+  gender?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  acceptTerms?: boolean;
+  country?: string;
+  picture?: string | FileList;
+};
 
-export type EmptyPropsType = object;
+export type FormType = {
+  name?: string;
+  age?: number;
+  gender?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  acceptTerms?: boolean;
+  country?: string;
+  picture?: FileList;
+};
 
-export type EmptyStateType = object;
-
-export type Character = {
-  id: number;
+export type submitFormType = {
   name: string;
-  gender: 'MALE' | 'FEMALE' | 'UNKNOWN';
-  status: 'ALIVE' | 'DEAD' | 'UNKNOWN';
-  species: string;
-  createdAt: string;
-  image: string;
-  isSelected: boolean;
-};
-
-export type ApiResponse = {
-  items: Character[];
-  total: number;
-  page: number;
-  size: number;
-  pages: number;
-};
-
-export type AppState = Omit<ApiResponse, 'size'> & {
-  query: string;
-  cardDetails: string;
-};
-
-export type AppDataSliceType = Omit<ApiResponse, 'size' | 'items'> & {
-  query: string;
-  cardDetails: string;
-};
-
-export type SearchBarState = { searchTerm: string };
-
-export type ReduxApiMockType = {
-  useGetAllCharactersQuery: typeof useGetAllCharactersQuery;
-  useGetCharacterQuery: typeof useGetCharacterQuery;
-  reducer: ReturnType<typeof apiFuturama.reducer>;
-  reducerPath: string;
+  age: number;
+  gender: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  acceptTerms: boolean;
+  country: string;
+  picture: FileList;
 };
