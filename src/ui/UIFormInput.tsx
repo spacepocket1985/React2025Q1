@@ -2,7 +2,7 @@ import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import styles from '../styles/uiFormInput.module.css';
 
 type UiFormInputProps<T extends FieldValues> = {
-  controlType: 'input' | 'select';
+  controlType: 'input' | 'select' | 'autocomplete'; // Добавили новый тип 'autocomplete'
   type?: React.HTMLInputTypeAttribute;
   name: Path<T>;
   register: UseFormRegister<T>;
@@ -28,7 +28,7 @@ export const UIFormInput = <T extends FieldValues>({
         <input
           id={name}
           type={type}
-          autoComplete={type === 'password' ? 'on' : ''}
+          autoComplete={type === 'password' ? 'on' : 'off'}
           className={`${error ? 'isInvalid' : ''}`}
           {...register(name, { required })}
           placeholder={placeholder}
@@ -50,6 +50,27 @@ export const UIFormInput = <T extends FieldValues>({
               </option>
             ))}
           </select>
+        </div>
+      )}
+
+      {controlType === 'autocomplete' && (
+        <div className={styles.selectWrapper}>
+          <span>{`Select ${name}`}</span>
+          <input
+            id={name}
+            list={`${name}-list`}
+            autoComplete="off"
+            className={`inputStyle ${error ? 'isInvalid' : ''}`}
+            {...register(name, { required })}
+            placeholder={placeholder}
+          />
+          <datalist id={`${name}-list`}>
+            {options.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </datalist>
         </div>
       )}
 

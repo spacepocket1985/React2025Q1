@@ -1,5 +1,6 @@
 import styles from '../../styles/PasswordStrengthIndicator.module.css';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const getPasswordStrength = (password: string): string => {
   let score = 0;
 

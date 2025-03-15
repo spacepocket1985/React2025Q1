@@ -114,12 +114,13 @@ export const ReactFrom: React.FC = () => {
         />
 
         <UIFormInput
-          controlType="select"
+          controlType="autocomplete"
           name="country"
           register={register}
           error={errors.country?.message ? errors.country?.message : ''}
           options={countries}
           required
+          placeholder="Select country"
         />
         <div className={styles.imgWrapper}>
           <UIFormInput
