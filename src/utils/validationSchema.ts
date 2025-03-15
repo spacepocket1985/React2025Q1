@@ -8,7 +8,8 @@ const validationSchema = Yup.object({
   age: Yup.number()
     .required('Age is required')
     .typeError('Age should be number')
-    .min(0, 'No negative values'),
+    .min(0, 'No negative values')
+    .integer('Age needs to be an integer'),
   email: Yup.string()
     .required('Email is required')
     .email('Email is invalid')
