@@ -28,7 +28,7 @@ export const SimpleFrom: React.FC = () => {
   const pictureRef = useRef<HTMLInputElement>(null);
   const tcRef = useRef<HTMLInputElement>(null);
   const genderRef = useRef<HTMLSelectElement>(null);
-  const countriesRef = useRef<HTMLSelectElement>(null);
+  const countriesRef = useRef<HTMLInputElement>(null);
 
   const gender = useAppSelector((state) => state.selectData.gender);
   const countries = useAppSelector((state) => state.selectData.countries);
@@ -138,13 +138,20 @@ export const SimpleFrom: React.FC = () => {
         <label htmlFor="country">
           <div className={styles.selectWrapper}>
             <span>{`Select country`}</span>
-            <select name="country" ref={countriesRef}>
+            <input
+              list="country-list"
+              name="country"
+              ref={countriesRef}
+              placeholder="Start typing to search..."
+              autoComplete="off"
+            />
+            <datalist id="country-list">
               {countries.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
               ))}
-            </select>
+            </datalist>
           </div>
           <div className={styles.invalidFeedback}>{formErrors.country}</div>
         </label>
