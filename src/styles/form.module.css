@@ -50,3 +50,7 @@
   color: var(--white);
   background-color: none;
 }
+
+button {
+  width: 100%;
+}

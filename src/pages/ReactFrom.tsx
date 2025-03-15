@@ -149,7 +149,9 @@ export const ReactFrom: React.FC = () => {
             }
           />
         </div>
-        <input type="submit" disabled={!isValid} />
+        <button type="submit" disabled={!isValid}>
+          submit
+        </button>
       </form>
     </>
   );

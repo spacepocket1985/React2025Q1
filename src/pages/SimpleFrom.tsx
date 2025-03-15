@@ -173,7 +173,7 @@ export const SimpleFrom: React.FC = () => {
           </label>
         </div>
 
-        <input type="submit" />
+        <button type="submit">submit</button>
       </form>
     </>
   );
