@@ -36,3 +36,14 @@
   text-align: center;
   font-weight: 600;
 }
+
+.visited {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.5rem;
+  border-radius: 10px;
+  background-color: #f0b709;
+  padding: 0.6rem;
+  font-weight: 600;
+  border: 0.2rem solid #000;
+}

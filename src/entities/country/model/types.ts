@@ -57,4 +57,5 @@ export type Country = {
   subregion: string;
   regionalBlocs?: RegionalBlock[];
   altSpellings: string[];
+  isSelected: boolean;
 };
