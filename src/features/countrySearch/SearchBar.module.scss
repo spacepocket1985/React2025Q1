@@ -1,0 +1,20 @@
+.searchBarWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.searchBarPic {
+  max-width: 42rem;
+  width: 100%;
+  display: block;
+  margin: auto;
+  margin-top: -0.3rem;
+  padding-bottom: 1rem;
+}
+
+button:disabled {
+  background-color: brown;
+}

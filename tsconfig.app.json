@@ -27,14 +27,12 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],
-      "@context/*": ["src/context/*"],
-      "@utils/*": ["src/utils/*"],
-      "@routes/*": ["src/routes/*"],
+      "@app/*": ["src/app/*"],
+      "@entities/*": ["src/entities/*"],
+      "@features/*": ["src/features/*"],
+      "@utils/*": ["src/shared/utils/*"],
       "@pages/*": ["src/pages/*"],
-      "@types/*": ["src/types/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@store/*": ["src/store/*"],
-      "@service/*": ["src/service/*"]
+      "@shared/*": ["src/shared/*"]
     }
   },
   "include": ["src"]
