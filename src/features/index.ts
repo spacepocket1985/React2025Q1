@@ -1,3 +1,3 @@
 export * from './countrySearch/SearchBar';
-export * from './regionSelector/RegionSelector';
-export * from './sortSelector/SortSelector';
+export * from './regionSelector';
+export * from './sortSelector/';
