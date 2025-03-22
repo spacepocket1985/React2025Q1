@@ -7,63 +7,65 @@ interface CountryCardProps {
   country: Country;
 }
 
-export const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
-  const [visited, setVisited] = useState(false);
+export const CountryCard: React.FC<CountryCardProps> = React.memo(
+  ({ country }) => {
+    const [visited, setVisited] = useState(false);
 
-  useEffect(() => {
-    const visitedCountries = JSON.parse(
-      localStorage.getItem('visitedCountries') || '[]'
-    );
-    if (visitedCountries.includes(country.name.official)) {
-      setVisited(true);
-    }
-  }, [country.name.official]);
-
-  const handleToggle = () => {
-    setVisited((prev) => {
-      const newVisited = !prev;
-
+    useEffect(() => {
       const visitedCountries = JSON.parse(
         localStorage.getItem('visitedCountries') || '[]'
       );
-
-      if (newVisited) {
-        visitedCountries.push(country.name.official);
-        localStorage.setItem(
-          'visitedCountries',
-          JSON.stringify(visitedCountries)
-        );
-      } else {
-        const updatedVisitedCountries = visitedCountries.filter(
-          (name: string) => name !== country.name.official
-        );
-        localStorage.setItem(
-          'visitedCountries',
-          JSON.stringify(updatedVisitedCountries)
-        );
+      if (visitedCountries.includes(country.name.official)) {
+        setVisited(true);
       }
+    }, [country.name.official]);
 
-      return newVisited;
-    });
-  };
+    const handleToggle = () => {
+      setVisited((prev) => {
+        const newVisited = !prev;
 
-  return (
-    <div
-      className={styles.cardWrapper}
-      onClick={handleToggle}
-      style={{ border: visited ? '12px solid #f0b709' : 'none' }}
-    >
-      <img
-        className={styles.cardImg}
-        src={country.flags.png}
-        alt={country.name.official}
-      />
-      <p className={styles.cardTitle}>{country.name.official}</p>
-      <p className={styles.cardTitle}>{`Region - ${country.region}`}</p>
-      <p
-        className={styles.cardTitle}
-      >{`Population - ${country.population} mln`}</p>
-      {visited && <p className={styles.visited}>{'visited'}</p>}
-    </div>
-  );
-};
+        const visitedCountries = JSON.parse(
+          localStorage.getItem('visitedCountries') || '[]'
+        );
+
+        if (newVisited) {
+          visitedCountries.push(country.name.official);
+          localStorage.setItem(
+            'visitedCountries',
+            JSON.stringify(visitedCountries)
+          );
+        } else {
+          const updatedVisitedCountries = visitedCountries.filter(
+            (name: string) => name !== country.name.official
+          );
+          localStorage.setItem(
+            'visitedCountries',
+            JSON.stringify(updatedVisitedCountries)
+          );
+        }
+
+        return newVisited;
+      });
+    };
+
+    return (
+      <div
+        className={styles.cardWrapper}
+        onClick={handleToggle}
+        style={{ border: visited ? '12px solid #f0b709' : 'none' }}
+      >
+        <img
+          className={styles.cardImg}
+          src={country.flags.png}
+          alt={country.name.official}
+        />
+        <p className={styles.cardTitle}>{country.name.official}</p>
+        <p className={styles.cardTitle}>{`Region - ${country.region}`}</p>
+        <p
+          className={styles.cardTitle}
+        >{`Population - ${country.population} mln`}</p>
+        {visited && <p className={styles.visited}>{'visited'}</p>}
+      </div>
+    );
+  }
+);

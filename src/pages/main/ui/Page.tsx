@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { SearchBar } from '@features/countrySearch/SearchBar';
 import {
   Region,
@@ -15,9 +15,6 @@ import styles from './Main.module.scss';
 const Main: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [countries, setCountries] = useState<Country[] | null>(null);
-  const [filteredCountries, setFilteredCountries] = useState<Country[] | null>(
-    null
-  );
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRegion, setSelectedRegion] = useState(Region.All);
   const [sortOrder, setSortOrder] = useState(SortOrder.None);
@@ -26,53 +23,52 @@ const Main: React.FC = () => {
     const fetchData = async () => {
       const data = await getCountries();
       setCountries(data);
-      setFilteredCountries(data);
       setIsLoading(false);
     };
 
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (countries) {
-      const filtered = countries.filter((country) => {
-        const matchesRegion =
-          selectedRegion === Region.All || country.region === selectedRegion;
-        const matchesSearch = country.name.official
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase());
-        return matchesRegion && matchesSearch;
-      });
+  const filteredCountries = useMemo(() => {
+    if (!countries) return [];
 
-      const sorted = [...filtered].sort((a, b) => {
-        if (sortOrder === SortOrder.ASC) {
-          return a.population - b.population;
-        } else if (sortOrder === SortOrder.DESC) {
-          return b.population - a.population;
-        }
-        return 0;
-      });
+    const filtered = countries.filter((country) => {
+      const matchesRegion =
+        selectedRegion === Region.All || country.region === selectedRegion;
+      const matchesSearch = country.name.official
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      return matchesRegion && matchesSearch;
+    });
 
-      setFilteredCountries(sorted);
-    }
+    const sorted = [...filtered].sort((a, b) => {
+      if (sortOrder === SortOrder.ASC) {
+        return a.population - b.population;
+      } else if (sortOrder === SortOrder.DESC) {
+        return b.population - a.population;
+      }
+      return 0;
+    });
+
+    return sorted;
   }, [countries, selectedRegion, searchTerm, sortOrder]);
 
-  const handleSearchTermChange = (term: string) => {
+  const handleSearchTermChange = useCallback((term: string) => {
     setSearchTerm(term);
-  };
+  }, []);
 
-  const handleRegionChange = (region: Region) => {
+  const handleRegionChange = useCallback((region: Region) => {
     setSelectedRegion(region);
-  };
+  }, []);
 
-  const handleSortChange = (order: SortOrder) => {
+  const handleSortChange = useCallback((order: SortOrder) => {
     setSortOrder(order);
-  };
+  }, []);
 
   const contentOrSpinner = isLoading ? (
     <Spinner />
   ) : (
-    <CardList countries={filteredCountries!} />
+    <CardList countries={filteredCountries} />
   );
 
   return (
