@@ -63,7 +63,7 @@ export const CountryCard: React.FC<CountryCardProps> = React.memo(
         <p className={styles.cardTitle}>{`Region - ${country.region}`}</p>
         <p
           className={styles.cardTitle}
-        >{`Population - ${country.population} mln`}</p>
+        >{`Population - ${country.population}`}</p>
         {visited && <p className={styles.visited}>{'visited'}</p>}
       </div>
     );
